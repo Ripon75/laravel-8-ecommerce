@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -14,7 +16,11 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::get();
+
+        return view('admin.category.index', [
+            'categories' => $categories
+        ]);
     }
 
     /**
@@ -24,7 +30,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.category.create');
     }
 
     /**
@@ -35,7 +41,42 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => ['required'],
+            'slug' => ['required', 'unique:categories']
+        ]);
+
+        if ($request->slug) {
+            $slug = Str::slug($request->slug, '-');
+        }
+        $category = new Category();
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $ext  = $file->getClientOriginalExtension();
+            $fileName        = time() . '.' . $ext;
+            $file->move('uploaded/categoryImages', $fileName);
+            $category->image = $fileName;
+        }
+        $name         = $request->input('name');
+        $slug         = $request->input('slug');
+        $description  = $request->input('description');
+        $status       = $request->input('status') == TRUE ? '1' : '0';
+        $popular      = $request->input('popular') == TRUE ? '1' : '0';
+        $metaTitle    = $request->input('meta_title');
+        $metaDescript = $request->input('meta_descrip');
+        $metaKeyword  = $request->input('meta_keyword');
+
+        $category->name          = $name;
+        $category->slug          = $slug;
+        $category->description   = $description;
+        $category->status        = $status;
+        $category->popular       = $popular;
+        $category->meta_title    = $metaTitle;
+        $category->meta_descript = $metaDescript;
+        $category->meta_keyword  = $metaKeyword;
+        $category->save();
+
+        return redirect()->route('category.index')->with('status', 'Category Added Successfully');
     }
 
     /**
