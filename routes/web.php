@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Admin\CategoryController;
 
 
 Route::get('/', function () {
@@ -14,8 +15,12 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 Route::middleware(['auth', 'isAdmin'])->group(function () {
+    // route for admin dashboard
     Route::get('/dashboard', 'Admin\FrontendController@index');
-    Route::get('/categories', 'Admin\CategoryController@index')->name('category.index');
-    Route::get('/category/create', 'Admin\CategoryController@create')->name('category.create');
-    Route::post('/category/store', 'Admin\CategoryController@store')->name('category.store');
+    // route for category crud
+    Route::get('/categories',           [CategoryController::class, 'index'])->name('category.index');
+    Route::get('/category/create',      [CategoryController::class, 'create'])->name('category.create');
+    Route::post('/category/store',      [CategoryController::class, 'store'])->name('category.store');
+    Route::get('/category/edit/{id}',   [CategoryController::class, 'edit'])->name('category.edit');
+    Route::put('/category/update/{id}', [CategoryController::class, 'update'])->name('category.update');
 });

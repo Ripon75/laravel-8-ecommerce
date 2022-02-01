@@ -37,27 +37,24 @@
     <div class="collapse navbar-collapse  w-auto  max-height-vh-100" id="sidenav-collapse-main">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link text-white active bg-gradient-primary" href="{{route('category.index')}}">
+          <a class="nav-link text-white active bg-gradient-primary" href="">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">dashboard</i>
+              <span class="nav-link-text ms-1">Dashboard</span>
             </div>
-            <span class="nav-link-text ms-1">Categories</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white " href="./pages/tables.html">
+          <a class="nav-link text-white " href="{{route('category.index')}}">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">table_view</i>
+              <span class="nav-link-text ms-1">Categories</span>
             </div>
-            <span class="nav-link-text ms-1">Tables</span>
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link text-white " href="./pages/billing.html">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">receipt_long</i>
+              <span class="nav-link-text ms-1">Billing</span>
             </div>
-            <span class="nav-link-text ms-1">Billing</span>
           </a>
         </li>
       </ul>
@@ -288,6 +285,14 @@
   <script src="{{ asset('admin/assets/js/plugins/perfect-scrollbar.min.js')}}"></script>
   <script src="{{ asset('admin/assets/js/plugins/smooth-scrollbar.min.js')}}"></script>
   <script src="{{ asset('admin/assets/js/plugins/chartjs.min.js')}}"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+@if(session('status'))
+<script>
+  swal("{{ session('status') }}");
+</script>
+@endif
+ 
   <script>
     var ctx = document.getElementById("chart-bars").getContext("2d");
 

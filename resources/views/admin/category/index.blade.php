@@ -13,6 +13,7 @@
                    {{-- <th scope="col">SL No</th> --}}
                    <th scope="col">Name</th>
                    <th scope="col">Slug</th>
+                   <th scope="col">Image</th>
                    <th scope="col">Action</th>
                </tr>
            </thead>
@@ -23,10 +24,13 @@
                    <td>{{$category->name}}</td>
                    <td>{{$category->slug}}</td>
                    <td>
+                       <img src="uploaded/categoryImages/{{$category->image}}" style="width: 70px; height:40px" alt="Category Image">
+                   </td>
+                   <td>
                        <form action="" method="post">
                            @csrf
                            @method('DELETE')
-                           <a href="" class="btn btn-info btn-sm">Edit</a>
+                           <a href="{{route('category.edit', $category->id)}}" class="btn btn-info btn-sm">Edit</a>
                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                        </form>
                    </td>
