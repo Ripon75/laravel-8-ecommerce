@@ -37,9 +37,9 @@ class CategoryController extends Controller
         }
         $category = new Category();
         if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $ext  = $file->getClientOriginalExtension();
-            $fileName        = time() . '.' . $ext;
+            $file     = $request->file('image');
+            $ext      = $file->getClientOriginalExtension();
+            $fileName = time() . '.' . $ext;
             $file->move('uploaded/categoryImages', $fileName);
             $category->image = $fileName;
         }

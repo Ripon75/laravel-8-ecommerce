@@ -51,9 +51,9 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white " href="./pages/billing.html">
+          <a class="nav-link text-white {{Request::is('products') ? 'active' : ''}}" href="{{route('products.index')}}">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <span class="nav-link-text ms-1">Billing</span>
+              <span class="nav-link-text ms-1">Products</span>
             </div>
           </a>
         </li>
