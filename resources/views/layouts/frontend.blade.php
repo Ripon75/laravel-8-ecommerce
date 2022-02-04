@@ -44,7 +44,7 @@
 
   <!--   Core JS Files   -->
 <script src="{{ asset('frontend/js/bootstrap.bundle.min.js')}}"></script>
-<script src="{{ asset('frontend/js/owl.carousel.min.js')}}"></script>
+{{-- <script src="{{ asset('frontend/js/owl.carousel.min.js')}}"></script> --}}
 <script src="{{ asset('frontend/js/jquery-3.6.0.min.js')}}"></script>
 
   {{-- End core js --}}
@@ -53,8 +53,7 @@
 <script>
   swal("{{ session('status') }}");
 </script>
-@yield('script')
 @endif
+@yield('script')
 </body>
-
 </html>
