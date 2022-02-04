@@ -3,8 +3,8 @@
 <script src="{{ asset('admin/assets/js/plugins/perfect-scrollbar.min.js')}}"></script>
 <script src="{{ asset('admin/assets/js/plugins/smooth-scrollbar.min.js')}}"></script>
 <script src="{{ asset('admin/assets/js/plugins/chartjs.min.js')}}"></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 @if(session('status'))
 <script>
   swal("{{ session('status') }}");

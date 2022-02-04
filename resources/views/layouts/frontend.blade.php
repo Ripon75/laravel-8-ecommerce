@@ -7,8 +7,6 @@
   <title>
     @yield('titile')
   </title>
-  <!--     Fonts and icons     -->
-  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
   <!-- Nucleo Icons -->
   <link href="{{ asset('admin/assets/css/nucleo-icons.css')}}" rel="stylesheet" />
   <link href="{{ asset('admin/assets/css/nucleo-svg.css')}}" rel="stylesheet" />
@@ -18,6 +16,13 @@
   <link id="pagestyle" href="{{ asset('frontend/css/bootstrap5.css')}}" rel="stylesheet"/>
   {{-- custome css --}}
   <link id="pagestyle" href="{{ asset('frontend/css/style.css')}}" rel="stylesheet"/>
+  {{-- owl carousel --}}
+  <link id="pagestyle" href="{{ asset('frontend/css/owl.carousel.min.css')}}" rel="stylesheet"/>
+  <link id="pagestyle" href="{{ asset('frontend/css/owl.theme.default.min.css')}}" rel="stylesheet"/>
+  {{-- goole font --}}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 </head>
 
 <body class="g-sidenav-show  bg-gray-200">
@@ -37,7 +42,17 @@
 
   <!--   Core JS Files   -->
 <script src="{{ asset('frontend/js/bootstrap.bundle.min.js')}}"></script>
-  {{-- End core css --}}
+<script src="{{ asset('frontend/js/owl.carousel.min.js')}}"></script>
+<script src="{{ asset('frontend/js/jquery-3.6.0.min.js')}}"></script>
+
+  {{-- End core js --}}
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+@if(session('status'))
+<script>
+  swal("{{ session('status') }}");
+</script>
+@yield('script')
+@endif
 </body>
 
 </html>
