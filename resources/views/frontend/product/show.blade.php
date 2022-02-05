@@ -11,7 +11,7 @@
     </div>
 </div>
 <div class="container">
-    <div class="card shadow">
+    <div class="card shadow product_data">
         <div class="card-body">
             <div class="row">
                 <div class="col-md-4 border-right">
@@ -38,7 +38,8 @@
                     @endif
 
                     <div class="row mt-2">
-                        <div class="col-md-2">
+                        <div class="col-md-3">
+                            <input type="hidden" value="{{$product->id}}" class="product_id"/>
                             <label for="quantity">Quantity</label>
                             <div class="input-gropu text-center mb-3">
                                 <button class="input-group-text increment-btn">+</button>
@@ -48,7 +49,7 @@
                         </div>
                         <div class="col-md-10">
                             <button type="button" class="btn btn-primary me-3 float-start">Add to Wishlist <i class="fa fa-heart"></i></button>
-                            <button type="button" class="btn btn-primary me-3 float-start">Add to Cart <i class="fa fa-shopping-cart"></i></button>
+                            <button type="button" class="btn btn-primary me-3 addToCart float-start">Add to Cart <i class="fa fa-shopping-cart"></i></button>
                         </div>
                     </div>
                 </div>
@@ -63,18 +64,20 @@
 $(document).ready(function(){
 
 //   event with increment button 
-  $(".increment-btn").click(function(){
-    var incrementValue = $('.qty-input').val();
-    var value = parseInt(incrementValue, 10);
-    value = isNaN(value) ? '0' : value;
-    if(value < 10) {
-        value++;
-        $('.qty-input').val(value);
-    }
+  $(".increment-btn").click(function(e){
+      e.preventDefault();
+      var incrementValue = $('.qty-input').val();
+      var value = parseInt(incrementValue, 10);
+      value = isNaN(value) ? '0' : value;
+      if(value < 10) {
+          value++;
+          $('.qty-input').val(value);
+       }
   });
 
   // event with decrement button
-  $('.decrement-btn').click(function(){
+  $('.decrement-btn').click(function(e){
+      e.preventDefault();
       var decrementValue = $('.qty-input').val();
       var value = parseInt(decrementValue, 10);
       value = isNaN(value) ? '0' : value;
@@ -82,7 +85,15 @@ $(document).ready(function(){
           value--;
           $('.qty-input').val(value);
       }
-  }) 
+  });
+//   add event with cart button
+ $('.addToCart').click(function(e) {
+     e.preventDefault();
+     var productId = $(this).closest('.product_data').find('.product_id').val();
+     var productQty = $(this).closest('.product_data').find('.qty-input').val();
+     console.log(productQty)
+ });
+
 });
 </script>
 @endsection
