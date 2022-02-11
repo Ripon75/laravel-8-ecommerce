@@ -11,12 +11,12 @@
             <div class="row">
                 <div class="col-md-6 form-group">
                     <label for="">Name</label>
-                    <input type="text" placeholder="Name" class="form-control" name="name">
+                    <input type="text" placeholder="Product Name" class="form-control" name="name">
                 </div>
 
                 <div class="col-md-6 form-group">
                     <label for="">Slug</label>
-                    <input type="text" placeholder="Slug" class="form-control" name="slug">
+                    <input type="text" placeholder="Product Slug" class="form-control" name="slug">
                 </div>
 
                 <div class="col-md-6">

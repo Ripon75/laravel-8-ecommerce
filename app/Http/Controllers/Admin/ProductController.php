@@ -51,9 +51,9 @@ class ProductController extends Controller
         $slug          = $request->input('slug');
         $description   = $request->input('description');
         $categoryId    = $request->input('category_id');
-        $originalPrice = $request->input('original_price');
-        $sellingPrice  = $request->input('selling_price');
-        $tax           = $request->input('tax');
+        $originalPrice = $request->input('original_price', 0);
+        $sellingPrice  = $request->input('selling_price', 0);
+        $tax           = $request->input('tax',0);
         $quantity      = $request->input('quantity');
         $status        = $request->input('status')  == TRUE ? '1' : '0';
         $trending      = $request->input('trending') == TRUE ? '1' : '0';
