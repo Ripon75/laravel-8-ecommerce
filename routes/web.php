@@ -3,12 +3,13 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Admin\CategoryController;
-// use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Frontend\FrontendController;
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [FrontendController::class, 'index']);
+Route::get('category', [FrontendController::class, 'category']);
+Route::get('category/{slug}', [FrontendController::class, 'categoryShow'])->name('category.show');
+Route::get('category/{cat_slug}/{prod_slug}', [FrontendController::class, 'productShow']);
 
 Auth::routes();
 
