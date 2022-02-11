@@ -34,7 +34,7 @@
             <div class="row">
                 <h2>Trending Category</h2>
                 {{-- <div class="owl-carousel feature-carousel owl-theme"> --}}
-                    @foreach ($trendingCategorys as $category)
+                    @foreach ($trendingCategories as $category)
                     <div class="col-md-3 mt-3">
                          <a href="{{route('category.show',$category->slug)}}">
                              <div class="card">

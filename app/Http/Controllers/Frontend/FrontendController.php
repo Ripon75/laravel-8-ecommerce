@@ -11,12 +11,12 @@ class FrontendController extends Controller
 {
     public function index()
     {
-        $featureProducts  = Product::where('trending', '1')->get();
-        $trendingProducts = Category::where('popular', '1')->get();
+        $featureProducts    = Product::where('trending', '1')->get();
+        $trendingCategories = Category::where('popular', '1')->get();
         
         return view('frontend.index', [
-            'featureProducts'  => $featureProducts,
-            'trendingCategorys' => $trendingProducts
+            'featureProducts'    => $featureProducts,
+            'trendingCategories' => $trendingCategories
         ]);
     }
 

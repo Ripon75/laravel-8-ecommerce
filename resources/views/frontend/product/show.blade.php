@@ -60,40 +60,41 @@
 @endsection
 
 @section('script')
-    <script>
-$(document).ready(function(){
+<script>
+    $(document).ready(function(){
 
-//   event with increment button 
-  $(".increment-btn").click(function(e){
-      e.preventDefault();
-      var incrementValue = $('.qty-input').val();
-      var value = parseInt(incrementValue, 10);
-      value = isNaN(value) ? '0' : value;
-      if(value < 10) {
-          value++;
-          $('.qty-input').val(value);
-       }
-  });
+    //   event with increment button 
+    $(".increment-btn").click(function(e){
+        e.preventDefault();
+        var incrementValue = $('.qty-input').val();
+        var value = parseInt(incrementValue, 10);
+        value = isNaN(value) ? '0' : value;
+        if(value < 10) {
+            value++;
+            $('.qty-input').val(value);
+        }
+    });
 
-  // event with decrement button
-  $('.decrement-btn').click(function(e){
-      e.preventDefault();
-      var decrementValue = $('.qty-input').val();
-      var value = parseInt(decrementValue, 10);
-      value = isNaN(value) ? '0' : value;
-      if(value > 0) {
-          value--;
-          $('.qty-input').val(value);
-      }
-  });
-//   add event with cart button
- $('.addToCart').click(function(e) {
-     e.preventDefault();
-     var productId = $(this).closest('.product_data').find('.product_id').val();
-     var productQty = $(this).closest('.product_data').find('.qty-input').val();
-     console.log(productQty)
- });
+    // event with decrement button
+    $('.decrement-btn').click(function(e){
+        e.preventDefault();
+        var decrementValue = $('.qty-input').val();
+        var value = parseInt(decrementValue, 10);
+        value = isNaN(value) ? '0' : value;
+        if(value > 0) {
+            value--;
+            $('.qty-input').val(value);
+        }
+    });
+    //   add event with cart button
+    $('.addToCart').click(function(e) {
+        e.preventDefault();
+        var productId = $(this).closest('.product_data').find('.product_id').val();
+        var productQty = $(this).closest('.product_data').find('.qty-input').val();
+        console.log(productId);
+        console.log(productQty);
+    });
 
-});
+    });
 </script>
 @endsection
