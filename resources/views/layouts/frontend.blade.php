@@ -4,6 +4,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  {{-- csrf token --}}
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>
     @yield('titile')
   </title>
@@ -46,6 +48,8 @@
 <script src="{{ asset('frontend/js/bootstrap.bundle.min.js')}}"></script>
 {{-- <script src="{{ asset('frontend/js/owl.carousel.min.js')}}"></script> --}}
 <script src="{{ asset('frontend/js/jquery-3.6.0.min.js')}}"></script>
+{{-- custom js --}}
+<script src="{{ asset('frontend/js/custom.js')}}"></script>
 
   {{-- End core js --}}
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>

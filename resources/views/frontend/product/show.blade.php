@@ -41,7 +41,7 @@
                         <div class="col-md-3">
                             <input type="hidden" value="{{$product->id}}" class="product_id"/>
                             <label for="quantity">Quantity</label>
-                            <div class="input-gropu text-center mb-3">
+                            <div class="input-group text-center mb-3">
                                 <button class="input-group-text increment-btn">+</button>
                                 <input type="text" name="quantity" value="1" class="form-control qty-input text-center"/>
                                 <button class="input-group-text decrement-btn">-</button>
@@ -49,7 +49,7 @@
                         </div>
                         <div class="col-md-10">
                             <button type="button" class="btn btn-primary me-3 float-start">Add to Wishlist <i class="fa fa-heart"></i></button>
-                            <button type="button" class="btn btn-primary me-3 addToCart float-start">Add to Cart <i class="fa fa-shopping-cart"></i></button>
+                            <button type="button" class="btn btn-success me-3 addToCart float-start">Add to Cart <i class="fa fa-shopping-cart"></i></button>
                         </div>
                     </div>
                 </div>
@@ -57,44 +57,4 @@
         </div>
     </div>
 </div>
-@endsection
-
-@section('script')
-<script>
-    $(document).ready(function(){
-
-    //   event with increment button 
-    $(".increment-btn").click(function(e){
-        e.preventDefault();
-        var incrementValue = $('.qty-input').val();
-        var value = parseInt(incrementValue, 10);
-        value = isNaN(value) ? '0' : value;
-        if(value < 10) {
-            value++;
-            $('.qty-input').val(value);
-        }
-    });
-
-    // event with decrement button
-    $('.decrement-btn').click(function(e){
-        e.preventDefault();
-        var decrementValue = $('.qty-input').val();
-        var value = parseInt(decrementValue, 10);
-        value = isNaN(value) ? '0' : value;
-        if(value > 0) {
-            value--;
-            $('.qty-input').val(value);
-        }
-    });
-    //   add event with cart button
-    $('.addToCart').click(function(e) {
-        e.preventDefault();
-        var productId = $(this).closest('.product_data').find('.product_id').val();
-        var productQty = $(this).closest('.product_data').find('.qty-input').val();
-        console.log(productId);
-        console.log(productQty);
-    });
-
-    });
-</script>
 @endsection
