@@ -48,4 +48,22 @@ class CartController extends Controller
             'cartItem' => $cartItem
         ]);
     }
+
+    // delete cart item
+    public function deleteProduct(Request $request)
+    {
+        if(Auth::check()) {
+           $productId = $request->input('product_id');
+            if(Cart::where('product_id', $productId)->where('user_id', Auth::id())->exists()) {
+                $cartItem = Cart::where('product_id', $productId)
+                                ->where('user_id', Auth::id())->first();
+                $cartItem->delete();
+
+                return response()->json(['status'=> 'Product Deleted Successfully']);
+            }
+
+        } else {
+            return response()->json(['status'=> 'Please Login to Continue']);
+        }
+    }
 }
