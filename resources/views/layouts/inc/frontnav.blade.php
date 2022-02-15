@@ -13,10 +13,13 @@
           <a class="nav-link" href="{{url('category')}}">Category</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Pricing</a>
+          <a class="nav-link" href="{{route('cart.view')}}">Cart</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link disabled">Disabled</a>
+          <a class="nav-link" href="{{ url('login') }}">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url('register') }}">Register</a>
         </li>
       </ul>
     </div>
