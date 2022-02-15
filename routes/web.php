@@ -19,6 +19,7 @@ Auth::routes();
 // cart route
 Route::post('add-to-cart', [Cartcontroller::class, 'addProduct'])->name('cart.add-product');
 Route::post('delete-cart-item', [Cartcontroller::class, 'deleteProduct'])->name('cart.delete-product');
+Route::post('update-cart', [Cartcontroller::class, 'UpdateCart']);
 
 Route::middleware(['auth'])->group(function(){
     Route::get('cart', [CartController::class, 'cartView'])->name('cart.view');

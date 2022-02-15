@@ -40,6 +40,7 @@ class CartController extends Controller
         }
     }
 
+    // cart view
     public function cartView()
     {
         $cartItem = Cart::where('user_id', Auth::id())->get();
@@ -47,6 +48,24 @@ class CartController extends Controller
         return view('frontend.cart', [
             'cartItem' => $cartItem
         ]);
+    }
+
+    // cart update
+     public function UpdateCart(Request $request)
+    {
+        $productId = $request->input('product_id');
+        $productQty = $request->input('product_qty');
+        if(Auth::check()) {
+            if(Cart::where('product_id', $productId)->where('user_id', Auth::id())->exists()) {
+                $cart = Cart::where('product_id', $productId)->where('user_id', Auth::id())->first();
+                $cart->product_qty = $productQty;
+                $cart->update();
+
+                return response()->json(['status'=> 'Product Updated']);
+            }
+        }else {
+            return response()->json(['status'=> 'Please Loging to Continue']);
+        }
     }
 
     // delete cart item
