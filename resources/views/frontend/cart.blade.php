@@ -38,7 +38,7 @@
         </div>
         <div class="card-footer">
             <h6>Total Price : RS {{ $total }}
-              <button class="btn btn-outline-success float-end">Process to checkout</button>
+              <a href="{{ route('checkout.index') }}" class="btn btn-outline-success float-end">Process to checkout</a>
             </h6>
         </div>
     </div>

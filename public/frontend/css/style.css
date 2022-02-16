@@ -6,3 +6,14 @@ a{
     font-family: 'Roboto',
     sans-serif;
 }
+
+.checkout-form label {
+    font-size: 12px;
+    font-weight: 700px;
+}
+
+.checkout-form input {
+    font-size: 14px;
+    padding: 5px;
+    font-weight: 400px;
+}
