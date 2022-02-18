@@ -11,7 +11,7 @@ use App\Http\Controllers\Frontend\CheckoutController;
 Route::get('/', [FrontendController::class, 'index']);
 Route::get('category', [FrontendController::class, 'category']);
 Route::get('category/{slug}', [FrontendController::class, 'categoryShow'])->name('category.show');
-Route::get('category/{cat_slug}/{prod_slug}', [FrontendController::class, 'productShow']);
+Route::get('category/{cat_slug}/{prod_slug}', [FrontendController::class, 'productShow'])->name('prosuct.show');
 
 Auth::routes();
 

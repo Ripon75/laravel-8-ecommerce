@@ -62,7 +62,7 @@ class FrontendController extends Controller
             }
 
         } else {
-            return redirect('/')->with('status', 'No sucg caregory found');
+            return redirect('/')->with('status', 'No such caregory found');
         }
     }
 }

@@ -22,18 +22,22 @@
                 </div>
                 <div class="col-md-3">
                     <input type="hidden" value="{{ $item->product_id }}" class="product_id" />
-                    <label for="quantity">Quantity</label>
-                    <div class="input-group text-center mb-3" style="width: 130px">
-                        <button class="input-group-text changeQty increment-btn">+</button>
-                        <input type="text" name="quantity" value="{{ $item->product_qty }}" class="form-control qty-input text-center" />
-                        <button class="input-group-text changeQty decrement-btn">-</button>
-                    </div>
+                    @if($item->product->quantity > $item->product_qty)
+                        <label for="quantity">Quantity</label>
+                        <div class="input-group text-center mb-3" style="width: 130px">
+                            <button class="input-group-text changeQty increment-btn">+</button>
+                            <input type="text" name="quantity" value="{{ $item->product_qty }}" class="form-control qty-input text-center" />
+                            <button class="input-group-text changeQty decrement-btn">-</button>
+                        </div>
+                        @php $total += $item->product_qty * $item->product->selling_price @endphp
+                    @else
+                    <h5 class="badge bg-danger">Out of stock</h5>
+                    @endif
                 </div>
                 <div class="col-md-2">
                     <button class="btn btn-danger delete-cart-item"><i class="fa fa-trash"></i></button>
                 </div>
             </div>
-            @php $total += $item->product_qty * $item->product->selling_price @endphp
             @endforeach
         </div>
         <div class="card-footer">
