@@ -5,12 +5,14 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\CartController;
+use App\Http\Controllers\Frontend\CheckoutController;
+use App\Http\Controllers\Frontend\UserController;
 
 
 Route::get('/', [FrontendController::class, 'index']);
 Route::get('category', [FrontendController::class, 'category']);
 Route::get('category/{slug}', [FrontendController::class, 'categoryShow'])->name('category.show');
-Route::get('category/{cat_slug}/{prod_slug}', [FrontendController::class, 'productShow']);
+Route::get('category/{cat_slug}/{prod_slug}', [FrontendController::class, 'productShow'])->name('prosuct.show');
 
 Auth::routes();
 
@@ -23,6 +25,11 @@ Route::post('update-cart', [Cartcontroller::class, 'UpdateCart']);
 
 Route::middleware(['auth'])->group(function(){
     Route::get('cart', [CartController::class, 'cartView'])->name('cart.view');
+    Route::get('checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+    Route::post('place-order', [CheckoutController::class, 'placeOrder']);
+    // my order
+    Route::get('my-orders', [UserController::class, 'index']);
+    Route::get('view-order/{id}', [UserController::class, 'viewOrder']);
 });
 
 
