@@ -22,7 +22,7 @@
                 </div>
                 <div class="col-md-3">
                     <input type="hidden" value="{{ $item->product_id }}" class="product_id" />
-                    @if($item->product->quantity > $item->product_qty)
+                    @if($item->product->quantity >= $item->product_qty)
                         <label for="quantity">Quantity</label>
                         <div class="input-group text-center mb-3" style="width: 130px">
                             <button class="input-group-text changeQty increment-btn">+</button>
