@@ -7,6 +7,7 @@
 @section('content')
 <div class="container">
     <div class="card shadow">
+        @if(count($cartItem) > 0)
         <div class="card-body">
             @php $total = 0 @endphp
             @foreach ($cartItem as $item)
@@ -45,6 +46,12 @@
               <a href="{{ route('checkout.index') }}" class="btn btn-outline-success float-end">Process to checkout</a>
             </h6>
         </div>
+        @else
+        <div class="card-body text-center">
+            <h2> Your <i class="fa fa-shopping-cart"></i> is empty</h2>
+            <a href="{{ url('category') }}" class="btn btn-outline-primary float-end">Continue Shopping</a>
+        </div>
+        @endif
     </div>
 </div>
 @endsection

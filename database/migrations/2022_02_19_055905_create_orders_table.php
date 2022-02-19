@@ -26,6 +26,7 @@ class CreateOrdersTable extends Migration
             $table->string('state')->nullable();
             $table->string('country')->nullable();
             $table->string('pin_code')->nullable();
+            $table->decimal('total_price')->nullable();
             $table->tinyInteger('status')->default('0');
             $table->string('message')->nullable();
             $table->string('traking_no')->nullable();

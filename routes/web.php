@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CheckoutController;
+use App\Http\Controllers\Frontend\UserController;
 
 
 Route::get('/', [FrontendController::class, 'index']);
@@ -26,6 +27,9 @@ Route::middleware(['auth'])->group(function(){
     Route::get('cart', [CartController::class, 'cartView'])->name('cart.view');
     Route::get('checkout', [CheckoutController::class, 'index'])->name('checkout.index');
     Route::post('place-order', [CheckoutController::class, 'placeOrder']);
+    // my order
+    Route::get('my-orders', [UserController::class, 'index']);
+    Route::get('view-order/{id}', [UserController::class, 'viewOrder']);
 });
 
 
