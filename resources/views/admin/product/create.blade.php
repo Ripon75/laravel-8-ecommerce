@@ -3,7 +3,8 @@
 @section('content')
 <div class="card">
     <div class="card-header">
-        Create Product
+        <h4>Create Product</h4>
+        <a href="{{ route('products.index') }}" class="btn btn-success btn-sm float-end">All Product</a>
     </div>
     <div class="card-body">
         <form action="{{route('products.store')}}" method="POST" enctype="multipart/form-data">
@@ -44,8 +45,8 @@
                 </div>
 
                  <div class="col-md-6">
-                    <label for="">Taxt</label>
-                    <input type="number" placeholder="Taxt" class="form-control" name="taxt">
+                    <label for="">Tax</label>
+                    <input type="number" placeholder="Tax" class="form-control" name="tax">
                 </div>
 
                  <div class="col-md-6">
@@ -83,7 +84,7 @@
                     <input type="file" class="form-control" name="image">
                 </div>
 
-                <div class="col-md-7">
+                <div class="col-md-12">
                     <button type="submit" style="float: right" class="btn btn-primary btn-sm mr-10">Submit</button>
                 </div>
 

@@ -4,7 +4,7 @@
 <div class="card">
     <div class="card-header ">
         <h4>Products</h4>
-         <a href="{{route('products.create')}}" style="float: right" class="btn btn-success btn-sm">Create Product</a>
+         <a href="{{route('products.create')}}" class="btn btn-success btn-sm float-end">Create</a>
     </div>
     <div class="card-body">
        <table class="table">

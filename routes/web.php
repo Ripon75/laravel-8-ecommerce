@@ -44,11 +44,11 @@ Route::middleware(['auth'])->group(function(){
         // Route::get('/category/edit/{id}',   [CategoryController::class, 'edit'])->name('category.edit');
         // Route::put('/category/update/{id}', [CategoryController::class, 'update'])->name('category.update');
 
-        // category crud
+        // category crud route
         Route::resource('categories', Admin\CategoryController::class);
         // product crud route
         Route::resource('products', Admin\ProductController::class);
-
+        // user crud route
         Route::get('users', [FrontendController::class, 'user']);
     });
 // });

@@ -4,7 +4,7 @@
 <div class="card">
     <div class="card-header">
         <h4>Edit Category</h4>
-        <a href="{{ route('categories.index')}}" style="float: right" class="btn btn-success btn-sm">All Category</a>
+        <a href="{{ route('categories.index')}}" class="btn btn-success btn-sm float-end">All Category</a>
     </div>
     <div class="card-body">
         <form action="{{ route('categories.update', $category->id)}}" method="POST" enctype="multipart/form-data">
@@ -59,7 +59,7 @@
                 </div>
 
                 <div class="col-md-12">
-                    <button type="submit" style="float: right" class="btn btn-primary btn-sm mr-10">Update</button>
+                    <button type="submit" class="btn btn-primary btn-sm mr-10 float-end">Update</button>
                 </div>
 
             </div>
