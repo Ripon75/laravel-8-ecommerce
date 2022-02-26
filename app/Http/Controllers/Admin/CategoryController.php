@@ -62,7 +62,7 @@ class CategoryController extends Controller
         $category->meta_keyword  = $metaKeyword;
         $category->save();
 
-        return redirect()->route('category.index')->with('status', 'Category Added Successfully');
+        return redirect()->route('categories.index')->with('status', 'Category added successfully');
     }
 
     public function show($id)
@@ -120,7 +120,7 @@ class CategoryController extends Controller
         $category->meta_keyword  = $metaKeyword;
         $category->save();
 
-        return redirect()->route('category.index')->with('status', 'Category Added Successfully');
+        return redirect()->route('categories.index')->with('status', 'Category update successfully');
     }
 
     public function destroy($id)

@@ -40,7 +40,7 @@ class FrontendController extends Controller
                 'products' => $products
             ]);
         } else {
-            return redirect('/')->with('status', 'Slug Not Found');
+            return redirect('/')->with('status', 'Slug not found');
         }
     }
 

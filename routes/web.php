@@ -10,9 +10,9 @@ use App\Http\Controllers\Frontend\UserController;
 
 
 Route::get('/', [FrontendController::class, 'index']);
-Route::get('category', [FrontendController::class, 'category']);
-Route::get('category/{slug}', [FrontendController::class, 'categoryShow'])->name('category.show');
-Route::get('category/{cat_slug}/{prod_slug}', [FrontendController::class, 'productShow'])->name('prosuct.show');
+Route::get('/category', [FrontendController::class, 'category']);
+Route::get('/category/{slug}', [FrontendController::class, 'categoryShow'])->name('category.show');
+Route::get('/category/{cat_slug}/{prod_slug}', [FrontendController::class, 'productShow'])->name('prosuct.show');
 
 Auth::routes();
 
@@ -38,11 +38,14 @@ Route::middleware(['auth'])->group(function(){
         // route for admin dashboard
         Route::get('/dashboard', 'Admin\FrontendController@index');
         // route for category crud
-        Route::get('/categories',           [CategoryController::class, 'index'])->name('category.index');
-        Route::get('/category/create',      [CategoryController::class, 'create'])->name('category.create');
-        Route::post('/category/store',      [CategoryController::class, 'store'])->name('category.store');
-        Route::get('/category/edit/{id}',   [CategoryController::class, 'edit'])->name('category.edit');
-        Route::put('/category/update/{id}', [CategoryController::class, 'update'])->name('category.update');
+        // Route::get('/categories',           [CategoryController::class, 'index'])->name('category.index');
+        // Route::get('/category/create',      [CategoryController::class, 'create'])->name('category.create');
+        // Route::post('/category/store',      [CategoryController::class, 'store'])->name('category.store');
+        // Route::get('/category/edit/{id}',   [CategoryController::class, 'edit'])->name('category.edit');
+        // Route::put('/category/update/{id}', [CategoryController::class, 'update'])->name('category.update');
+
+        // category crud
+        Route::resource('categories', Admin\CategoryController::class);
         // product crud route
         Route::resource('products', Admin\ProductController::class);
 

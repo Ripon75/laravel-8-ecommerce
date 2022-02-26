@@ -4,7 +4,7 @@
 <div class="card">
     <div class="card-header ">
         <h4>Categories</h4>
-         <a href="{{route('category.create')}}" style="float: right" class="btn btn-success btn-sm">Create Category</a>
+        <a href="{{ route('categories.create')}}" style="float: right" class="btn btn-success btn-sm">Create</a>
     </div>
     <div class="card-body">
        <table class="table">
@@ -30,7 +30,7 @@
                        <form action="" method="post">
                            @csrf
                            @method('DELETE')
-                           <a href="{{route('category.edit', $category->id)}}" class="btn btn-info btn-sm">Edit</a>
+                           <a href="{{ route('categories.edit', $category->id)}}" class="btn btn-info btn-sm">Edit</a>
                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                        </form>
                    </td>

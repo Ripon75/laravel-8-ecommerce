@@ -3,10 +3,11 @@
 @section('content')
 <div class="card">
     <div class="card-header">
-        Edit Category
+        <h4>Edit Category</h4>
+        <a href="{{ route('categories.index')}}" style="float: right" class="btn btn-success btn-sm">All Category</a>
     </div>
     <div class="card-body">
-        <form action="{{url('/category/update', $category->id)}}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('categories.update', $category->id)}}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="row">

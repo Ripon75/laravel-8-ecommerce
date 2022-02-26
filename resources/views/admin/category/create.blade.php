@@ -3,10 +3,11 @@
 @section('content')
 <div class="card">
     <div class="card-header">
-        Create Category
+       <h4> Create Category</h4>
+       <a href="{{ route('categories.index')}}" style="float: right" class="btn btn-success btn-sm">All Category</a>
     </div>
     <div class="card-body">
-        <form action="{{route('category.store')}}" method="POST" enctype="multipart/form-data">
+        <form action="{{route('categories.store')}}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row">
                 <div class="col-md-6 form-group">
