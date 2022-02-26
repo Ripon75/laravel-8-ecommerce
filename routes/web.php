@@ -33,8 +33,6 @@ Route::middleware(['auth'])->group(function(){
 });
 
 
-
-
 // Route::prefix('admin')->grpup(function() {
     Route::middleware(['auth', 'isAdmin'])->group(function () {
         // route for admin dashboard
@@ -47,5 +45,7 @@ Route::middleware(['auth'])->group(function(){
         Route::put('/category/update/{id}', [CategoryController::class, 'update'])->name('category.update');
         // product crud route
         Route::resource('products', Admin\ProductController::class);
+
+        Route::get('users', [FrontendController::class, 'user']);
     });
 // });
