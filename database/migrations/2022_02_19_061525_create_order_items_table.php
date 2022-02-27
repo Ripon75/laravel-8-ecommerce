@@ -17,7 +17,7 @@ class CreateOrderItemsTable extends Migration
             $table->id();
             $table->string('order_id')->nullable();
             $table->string('product_id')->nullable();
-            $table->string('quntity')->nullable();
+            $table->string('quantity')->nullable();
             $table->string('price')->nullable();
             $table->timestamps();
         });

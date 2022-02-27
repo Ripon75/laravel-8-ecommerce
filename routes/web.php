@@ -7,6 +7,7 @@ use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\UserController;
+use App\Http\Controllers\Admin\OrderController;
 
 
 Route::get('/', [FrontendController::class, 'index']);
@@ -52,3 +53,9 @@ Route::middleware(['auth'])->group(function(){
         Route::get('users', [FrontendController::class, 'user']);
     });
 // });
+
+// user route
+Route::get('users', [FrontendController::class, 'users']);
+// order route
+Route::get('orders', [OrderController::class, 'index']);
+Route::get('admin/view-order/{id}', [OrderController::class, 'show']);
