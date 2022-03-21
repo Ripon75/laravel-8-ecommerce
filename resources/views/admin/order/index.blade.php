@@ -1,7 +1,7 @@
-@extends('layouts.frontend')
+@extends('layouts.admin')
 
 @section('title')
-My Orders
+    Orders
 @endsection
 
 @section('content')
@@ -10,7 +10,8 @@ My Orders
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    My Orders
+                    <h4>New Orders</h4>
+                    <a href="{{ 'order-history' }}" class="btn btn-warning float-end">Order history</a>
                 </div>
                 <div class="card-body">
                     <table class="table">
@@ -26,12 +27,12 @@ My Orders
                         <tbody>
                             @foreach ($orders as $order)
                             <tr>
-                                <td>{{ date('d-m-Y', strtotime($order->created_at)) }}</td>
+                                <td>{{ date('d-m-Y') }}</td>
                                 <td>{{ $order->traking_no }}</td>
                                 <td>{{ $order->total_price }}</td>
                                 <td>{{ $order->status == '0' ? 'pending' : 'Completed' }}</td>
                                 <td>
-                                    <a href="{{ url('view-order/'.$order->id) }}" class="btn btn-primary">View</a>
+                                    <a href="{{ url('admin/view-order/'.$order->id) }}" class="btn btn-primary">View</a>
                                 </td>
                             </tr>
                             @endforeach
