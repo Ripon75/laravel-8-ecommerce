@@ -63,6 +63,18 @@ Order View
                                 </tbody>
                             </table>
                             <h4 class="px-2">Grand Total : <span class="float-end">{{ $order->total_price }}</span></h4>
+                            <div class="mt-3">
+                                <label>Orders status</label>
+                                <form action="{{ url('update-order/'.$order->id) }}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <select class="form-select" name="order_status">
+                                        <option {{ $order->status == '0' ? 'selected' : '' }} value="0">Pending</option>
+                                        <option {{ $order->status == '1' ? 'selected' : '' }} value="1">Completed</option>
+                                    </select>
+                                    <button type="submit" class="mt-3 btn btn-primary float-end">Update</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -10,18 +10,18 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h4>New Orders</h4>
-                    <a href="{{ 'order-history' }}" class="btn btn-warning float-end">Order history</a>
+                    <h4>Completed orders status</h4>
+                    <a href="{{ 'orders' }}" class="btn btn-warning float-end">Orders</a>
                 </div>
                 <div class="card-body">
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col">Order Date</th>
-                                <th scope="col">Traking NO</th>
-                                <th scope="col">Total Price</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Action</th>
+                                <th>Order Date</th>
+                                <th>Traking NO</th>
+                                <th>Total Price</th>
+                                <th>Status</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
