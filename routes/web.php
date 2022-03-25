@@ -10,9 +10,9 @@ use App\Http\Controllers\Frontend\UserController;
 use App\Http\Controllers\Admin\OrderController;
 
 Route::get('/', [FrontendController::class, 'index']);
-Route::get('/category', [FrontendController::class, 'category']);
-Route::get('/category/{slug}', [FrontendController::class, 'categoryShow'])->name('category.show');
-Route::get('/category/{cat_slug}/{prod_slug}', [FrontendController::class, 'productShow'])->name('prosuct.show');
+Route::get('/categories', [FrontendController::class, 'category']);
+Route::get('/categories/{slug}', [FrontendController::class, 'categoryShow'])->name('categories.show');
+Route::get('/categories/{cat_slug}/{prod_slug}', [FrontendController::class, 'productShow'])->name('prosucts.show');
 
 Auth::routes();
 
@@ -20,8 +20,8 @@ Auth::routes();
 
 // cart route
 Route::post('add-to-cart',      [Cartcontroller::class, 'addProduct'])->name('cart.add-product');
-Route::post('delete-cart-item', [Cartcontroller::class, 'deleteProduct'])->name('cart.delete-product');
 Route::post('update-cart',      [Cartcontroller::class, 'UpdateCart']);
+Route::post('delete-cart-item', [Cartcontroller::class, 'deleteProduct'])->name('cart.delete-product');
 
 Route::middleware(['auth'])->group(function(){
     Route::get('cart',         [CartController::class, 'cartView'])->name('cart.view');
@@ -33,6 +33,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('view-order/{id}', [UserController::class, 'viewOrder']);
 });
 
+// admin access route
 Route::middleware(['auth', 'isAdmin'])->group(function () {
     // route for admin dashboard
     Route::get('/dashboard', 'Admin\FrontendController@index');

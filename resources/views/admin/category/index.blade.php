@@ -9,20 +9,19 @@
     <div class="card-body">
        <table class="table">
            <thead>
-               <tr>
-                   {{-- <th scope="col">SL No</th> --}}
-                   <th scope="col">Name</th>
-                   <th scope="col">Slug</th>
-                   <th scope="col">Image</th>
-                   <th scope="col">Action</th>
+               <tr class="text-center">
+                   <th>Name</th>
+                   <th>Status</th>
+                   <th>Image</th>
+                   <th>Action</th>
                </tr>
            </thead>
            <tbody>
                {{-- @php( $i = 1 ) --}}
                @foreach ($categories as $category)
-               <tr>
+               <tr class="text-center">
                    <td>{{$category->name}}</td>
-                   <td>{{$category->slug}}</td>
+                   <td >{{$category->status}}</td>
                    <td>
                        <img src="uploaded/categoryImages/{{$category->image}}" style="width: 70px; height:40px" alt="Category Image">
                    </td>

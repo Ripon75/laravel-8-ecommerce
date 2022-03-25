@@ -31,16 +31,17 @@ class FrontendController extends Controller
 
     public function categoryShow($slug)
     {
-        if(Category::where('slug', $slug)->exists()) {
-            $category = Category::where('slug', $slug)->first();
+        $category = Category::where('slug', $slug)->first();
+        if ($category) {
             $products = Product::where('category_id', $category->id)->get();
 
             return view('frontend.product.index', [
                 'category' => $category,
                 'products' => $products
             ]);
-        } else {
-            return redirect('/')->with('status', 'Slug not found');
+
+        }else {
+            return redirect('/')->with('status', 'Category not found');
         }
     }
 

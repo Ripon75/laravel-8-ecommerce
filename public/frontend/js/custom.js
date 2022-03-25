@@ -2,12 +2,12 @@ $(document).ready(function () {
     //   event with increment button 
     $('.increment-btn').click(function (e) {
         e.preventDefault();
-        var incrementValue = $(this).parents('.product_data').find('.qty-input').val();
+        var incrementValue = $(this).closest('.product_data').find('.qty-input').val();
         var value = parseInt(incrementValue, 10);
         value = isNaN(value) ? '0' : value;
-        if (value < 10) {
+        if (value < 100) {
             value++;
-            $(this).parents('.product_data').find('.qty-input').val(value);
+            $(this).closest('.product_data').find('.qty-input').val(value);
         }
     });
 
@@ -17,7 +17,7 @@ $(document).ready(function () {
         var decrementValue = $(this).closest('.product_data').find('.qty-input').val();
         var value = parseInt(decrementValue, 10);
         value = isNaN(value) ? '0' : value;
-        if (value > 0) {
+        if (value > 1) {
             value--;
             $(this).closest('.product_data').find('.qty-input').val(value);
         }
@@ -46,7 +46,32 @@ $(document).ready(function () {
         });
     });
 
-    // event with delete button
+    // increment price with incremet product quantity
+    $('.changeQty').click(function(e) {
+        e.preventDefault();
+        var productId  = $(this).closest('.product_data').find('.product_id').val();
+        var productQty = $(this).closest('.product_data').find('.qty-input').val();
+        data = {
+            'product_id': productId,
+            'product_qty': productQty
+        }
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            method: "POST",
+            url: "update-cart",
+            data: data,
+            success: function (response) {
+                window.location.reload();
+                // swal(response.status);
+            }
+        });
+    });
+
+       // event with delete button
     $('.delete-cart-item').click(function (e) {
         e.preventDefault();
         var productId = $(this).closest('.product_data').find('.product_id').val();
@@ -68,30 +93,4 @@ $(document).ready(function () {
             }
         });
     });
-
-    // increment price with incremet product quantity
-    $('.changeQty').click(function(e) {
-        e.preventDefault();
-        var productId = $(this).closest('.product_data').find('.product_id').val();
-        var productQty = $(this).closest('.product_data').find('.qty-input').val();
-        data = {
-            'product_id': productId,
-            'product_qty': productQty
-        }
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        $.ajax({
-            method: "POST",
-            url: "update-cart",
-            data: data,
-            success: function (response) {
-                window.location.reload();
-                swal(response.status);
-            }
-        });
-    });
-
 });
