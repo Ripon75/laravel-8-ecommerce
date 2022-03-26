@@ -72,25 +72,25 @@ $(document).ready(function () {
     });
 
        // event with delete button
-    $('.delete-cart-item').click(function (e) {
-        e.preventDefault();
-        var productId = $(this).closest('.product_data').find('.product_id').val();
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        $.ajax({
-            method: "POST",
-            url: "delete-cart-item",
-            data: {
-                'product_id': productId
-            },
-            // cache: false,
-            success: function (response) {
-                window.location.reload();
-                swal(response.status);
-            }
-        });
-    });
+    // $('.delete-cart-item').click(function (e) {
+    //     e.preventDefault();
+    //     var productId = $(this).closest('.product_data').find('.product_id').val();
+    //     $.ajaxSetup({
+    //         headers: {
+    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //         }
+    //     });
+    //     $.ajax({
+    //         method: "POST",
+    //         url: "delete-cart-item",
+    //         data: {
+    //             'product_id': productId
+    //         },
+    //         // cache: false,
+    //         success: function (response) {
+    //             window.location.reload();
+    //             swal(response.status);
+    //         }
+    //     });
+    // });
 });

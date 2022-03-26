@@ -19,7 +19,7 @@
                     <div class="col-md-3 mt-3">
                         <div class="card">
                             {{-- <a href="{{url('categories/'.$category->slug .'/'.$product->slug)}}"> --}}
-                            <a href="{{ route('prosucts.show',[$category->slug, $product->slug]) }}">
+                            <a href="{{ route('prosucts.show', [$category->slug, $product->slug]) }}">
                                <img src="{{asset('uploaded/productImages/'.$product->image)}}" class="card-img-top" alt="product image">
                                 <div class="card-body">
                                     <h5>{{ $product->name }}</h5>

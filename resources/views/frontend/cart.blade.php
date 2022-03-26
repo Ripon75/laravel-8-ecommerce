@@ -21,7 +21,7 @@ Ecommerce
                     <h6>{{ $item->product->name }}</h3>
                 </div>
                 <div class="col-md-2">
-                    <h6> Rs {{ $item->product->selling_price }}</h3>
+                    <h6> Rs {{ ($item->product->selling_price) ?? 0 }}</h3>
                 </div>
                 {{-- Cart item increment and decrement part --}}
                 <div class="col-md-3">
@@ -38,16 +38,25 @@ Ecommerce
                     </div>
                     @php $total += $item->product_qty * $item->product->selling_price @endphp
                     @else
+                     <div class="input-group text-center mb-3" style="width: 130px">
+                        <button class="decrement-btn input-group-text changeQty">-</button>
+                        <input type="text" name="quantity" value="{{ $item->product_qty }}"
+                        class="qty-input form-control text-center" />
+                        <button class="input-group-text changeQty plus">+</button>
+                    </div>
+                    @php $total += $item->product_qty * $item->product->selling_price @endphp
                     <h5 class="badge bg-danger">Out of stock</h5>
                     @endif
                 </div>
-                {{--  Cart item delete button --}}
+                {{--  Cart item delete --}}
                 <div class="col-md-2">
-                    <button class="btn btn-danger delete-cart-item"><i class="fa fa-trash"></i></button>
+                    {{-- <button class="btn btn-danger delete-cart-item"><i class="fa fa-trash"></i></button> --}}
+                    <a href="{{ route('cart.product-delete', $item->product_id) }}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                 </div>
             </div>
             @endforeach
         </div>
+        {{-- Show total price and checkout button --}}
         <div class="card-footer">
             <h6>Total Price : RS {{ $total }}
                 <a href="{{ route('checkout.index') }}" class="btn btn-outline-success float-end">Process to

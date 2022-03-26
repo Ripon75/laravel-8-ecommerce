@@ -10,18 +10,28 @@ use App\Http\Controllers\Frontend\UserController;
 use App\Http\Controllers\Admin\OrderController;
 
 Route::get('/', [FrontendController::class, 'index']);
-Route::get('/categories', [FrontendController::class, 'category']);
+Route::get('/frontemd/categories', [FrontendController::class, 'category']);
 Route::get('/categories/{slug}', [FrontendController::class, 'categoryShow'])->name('categories.show');
-Route::get('/categories/{cat_slug}/{prod_slug}', [FrontendController::class, 'productShow'])->name('prosucts.show');
+// cat_slug is optional
+Route::get('/categories/{cat_slug?}/{prod_slug?}', [FrontendController::class, 'productShow'])->name('prosucts.show');
 
 Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // cart route
-Route::post('add-to-cart',      [Cartcontroller::class, 'addProduct'])->name('cart.add-product');
-Route::post('update-cart',      [Cartcontroller::class, 'UpdateCart']);
-Route::post('delete-cart-item', [Cartcontroller::class, 'deleteProduct'])->name('cart.delete-product');
+Route::post('add-to-cart',          [Cartcontroller::class, 'addProductCart'])->name('cart.add-product');
+Route::post('update-cart',          [Cartcontroller::class, 'UpdateProductCart']);
+Route::get('delete-cart-item/{id}', [Cartcontroller::class, 'deleteProductCart'])->name('cart.product-delete');
+
+// user route
+Route::get('users', [FrontendController::class, 'users']);
+// order route
+Route::get('orders',                [OrderController::class, 'index']);
+Route::get('admin/view-order/{id}', [OrderController::class, 'show']);
+Route::put('/update-order/{id}',    [OrderController::class, 'updateOrder']);
+Route::get('/order-history',        [OrderController::class, 'orderHistory']);
+
 
 Route::middleware(['auth'])->group(function(){
     Route::get('cart',         [CartController::class, 'cartView'])->name('cart.view');
@@ -44,12 +54,3 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     // user crud route
     Route::get('users', [FrontendController::class, 'user']);
 });
-
-// user route
-Route::get('users', [FrontendController::class, 'users']);
-
-// order route
-Route::get('orders',                [OrderController::class, 'index']);
-Route::get('admin/view-order/{id}', [OrderController::class, 'show']);
-Route::put('/update-order/{id}',    [OrderController::class, 'updateOrder']);
-Route::get('/order-history',        [OrderController::class, 'orderHistory']);

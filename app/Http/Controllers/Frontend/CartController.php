@@ -10,7 +10,7 @@ use Auth;
 
 class CartController extends Controller
 {
-    public function addProduct(Request $request)
+    public function addProductCart(Request $request)
     {
         $productId = $request->input('product_id');
         $productQty = $request->input('product_qty');
@@ -50,7 +50,7 @@ class CartController extends Controller
     }
 
     // cart update
-     public function UpdateCart(Request $request)
+     public function UpdateProductCart(Request $request)
     {
         $productId  = $request->input('product_id');
         $productQty = $request->input('product_qty');
@@ -68,19 +68,19 @@ class CartController extends Controller
     }
 
     // delete cart item
-    public function deleteProduct(Request $request)
+    public function deleteProductCart(Request $request, $id)
     {
         if(Auth::check()) {
-           $productId = $request->input('product_id');
-           $cartItem = Cart::where('product_id', $productId)
+        //    $productId = $request->input('product_id');
+           $cartItem = Cart::where('product_id', $id)
                            ->where('user_id', Auth::id())->first();
             if($cartItem) {
                 $cartItem->delete();
 
-                return response()->json(['status'=> 'Product Deleted Successfully']);
+                return back()->with('status', 'Product Deleted Successfully');
             }
         } else {
-            return response()->json(['status'=> 'Please Login to Continue']);
+            return back()->with('status', 'Please Login to Continue');
         }
     }
 }
