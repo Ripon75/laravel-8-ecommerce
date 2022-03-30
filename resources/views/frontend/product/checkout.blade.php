@@ -7,13 +7,19 @@
 @section('content')
 <div class="container">
     <form action="{{ url('place-order') }}" method="POST">
-        {{ csrf_field() }}
+        @csrf
+
         <div class="row">
+            {{-- User basic information start--}}
             <div class="col-md-7">
+                {{-- Card --}}
                 <div class="card">
+                    {{-- Card header --}}
+                    <div class="card-header">
+                        Basic Details
+                    </div>
+                    {{-- Card body --}}
                     <div class="card-body">
-                        <h6>Basic Details</h6>
-                        <hr>
                         <div class="row checkout-form">
                             <div class="col-md-6">
                                 <label for="first_name">First Name</label>
@@ -61,23 +67,32 @@
                     </div>
                 </div>
             </div>
+            {{-- End user basic information --}}
+
+            {{-- Cart information start--}}
             <div class="col-md-5">
+                {{-- Card --}}
                 <div class="card">
+                    {{-- Card header --}}
+                    <div class="card-header">
+                        Cart information
+                    </div>
+                    {{-- Card body --}}
                     <div class="card-body">
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Quantity</th>
-                                    <th scope="col">Price</th>
+                                    <th>Name</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($carts as $cart)
                                 <tr>
-                                    <td>{{ $cart->product->name }}</td>
-                                    <td>{{ $cart->product_qty }}</td>
-                                    <td>{{ $cart->product->selling_price }}</td>
+                                    <td>{{ ($cart->product->name) ?? null }}</td>
+                                    <td>{{ ($cart->product_qty) ?? null }}</td>
+                                    <td>{{ ($cart->product->selling_price) ?? null }}</td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -86,6 +101,7 @@
                     </div>
                 </div>
             </div>
+            {{-- End cart information --}}
         </div>
     </form>
 </div>

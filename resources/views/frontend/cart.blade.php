@@ -18,7 +18,7 @@ Ecommerce
                     <img src="{{ 'uploaded/productImages/'.$item->product->image }}" height="70px" width="70px" alt="">
                 </div>
                 <div class="col-md-3">
-                    <h6>{{ $item->product->name }}</h3>
+                    <h6>{{ ($item->product->name) ?? null }}</h3>
                 </div>
                 <div class="col-md-2">
                     <h6> Rs {{ ($item->product->selling_price) ?? 0 }}</h3>
@@ -41,7 +41,7 @@ Ecommerce
                      <div class="input-group text-center mb-3" style="width: 130px">
                         <button class="decrement-btn input-group-text changeQty">-</button>
                         <input type="text" name="quantity" value="{{ $item->product_qty }}"
-                        class="qty-input form-control text-center" />
+                        class="qty-input form-control text-center"/>
                         <button class="input-group-text changeQty plus">+</button>
                     </div>
                     @php $total += $item->product_qty * $item->product->selling_price @endphp
@@ -59,14 +59,13 @@ Ecommerce
         {{-- Show total price and checkout button --}}
         <div class="card-footer">
             <h6>Total Price : RS {{ $total }}
-                <a href="{{ route('checkout.index') }}" class="btn btn-outline-success float-end">Process to
-                    checkout</a>
+                <a href="{{ route('checkout.index') }}" class="btn btn-outline-success float-end">Process to checkout</a>
             </h6>
         </div>
         @else
         <div class="card-body text-center">
             <h2> Your <i class="fa fa-shopping-cart"></i> is empty</h2>
-            <a href="{{ url('category') }}" class="btn btn-outline-primary float-end">Continue Shopping</a>
+            <a href="{{ url('/') }}" class="btn btn-outline-primary float-end">Continue Shopping</a>
         </div>
         @endif
     </div>
