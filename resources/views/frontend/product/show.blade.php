@@ -7,7 +7,7 @@
 @section('content')
 <div class="py-3 mb-4 shadow-sm bg-warning border-top">
     <div class="container">
-        <h6 class="mb-0">Collection / {{$product->category->name}} / {{$product->name}}</h6>
+        <h6 class="mb-0">Collection / {{($product->category->name) ?? null}} / {{$product->name}}</h6>
     </div>
 </div>
 {{-- cart start --}}

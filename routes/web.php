@@ -8,6 +8,7 @@ use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\UserController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\DashboardController;
 
 Route::get('/',                    [FrontendController::class, 'index']);
 Route::get('/frontemd/categories', [FrontendController::class, 'category']);
@@ -24,8 +25,6 @@ Route::post('/add-to-cart',          [Cartcontroller::class, 'addProductCart'])-
 Route::post('/update-cart',          [Cartcontroller::class, 'UpdateProductCart']);
 Route::get('/delete-cart-item/{id}', [Cartcontroller::class, 'deleteProductCart'])->name('cart.product-delete');
 
-// user route
-Route::get('/users', [FrontendController::class, 'users']);
 // order route
 Route::get('/orders',                [OrderController::class, 'index']);
 Route::get('/admin/view-order/{id}', [OrderController::class, 'show']);
@@ -53,5 +52,6 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     // product crud route
     Route::resource('/products', Admin\ProductController::class);
     // user crud route
-    Route::get('/users', [FrontendController::class, 'user']);
+    // Route::get('/users', [FrontendController::class, 'user']);
+    Route::get('/users', [DashboardController::class, 'user']);
 });

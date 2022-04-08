@@ -12,7 +12,7 @@ class CartController extends Controller
 {
     public function addProductCart(Request $request)
     {
-        $productId = $request->input('product_id');
+        $productId  = $request->input('product_id');
         $productQty = $request->input('product_qty');
         if(Auth::check()) {
             $productCheck = Product::where('id', $productId)->first();

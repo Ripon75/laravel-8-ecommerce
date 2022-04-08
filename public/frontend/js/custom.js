@@ -3,6 +3,7 @@ $(document).ready(function () {
     $('.increment-btn').click(function (e) {
         e.preventDefault();
         var incrementValue = $(this).closest('.product_data').find('.qty-input').val();
+        // var incrementValue = $('.qty-input').val();
         var value = parseInt(incrementValue, 10);
         value = isNaN(value) ? '0' : value;
         if (value < 100) {
