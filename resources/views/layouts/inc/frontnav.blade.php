@@ -16,6 +16,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('cart.view')}}">Cart</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('wishlists.index')}}">Wishlist</a>
+                </li>
 
                 @guest
                 @if(Route::has('login'))

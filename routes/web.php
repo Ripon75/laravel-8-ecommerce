@@ -2,13 +2,16 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Frontend\FrontendController;
-use App\Http\Controllers\Frontend\CartController;
-use App\Http\Controllers\Frontend\CheckoutController;
-use App\Http\Controllers\Frontend\UserController;
+// For admin
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Frontend\FrontendController;
+// For user
+use App\Http\Controllers\Frontend\CartController;
+use App\Http\Controllers\Frontend\UserController;
+use App\Http\Controllers\Frontend\CheckoutController;
+use App\Http\Controllers\Frontend\WishlistController;
 
 Route::get('/',                    [FrontendController::class, 'index']);
 Route::get('/frontemd/categories', [FrontendController::class, 'category']);
@@ -31,16 +34,21 @@ Route::get('/admin/view-order/{id}', [OrderController::class, 'show']);
 Route::put('/update-order/{id}',     [OrderController::class, 'updateOrder']);
 Route::get('/order-history',         [OrderController::class, 'orderHistory']);
 
+Route::post('/add-to-wishlists',     [WishlistController::class, 'add']);
+Route::get('/remove-wishlists/{id}', [WishlistController::class, 'remove'])->name('remove.wishlists');
+
 
 Route::middleware(['auth'])->group(function(){
     Route::get('/cart',         [CartController::class, 'cartView'])->name('cart.view');
     // Checkout route
     Route::get('/checkout',     [CheckoutController::class, 'index'])->name('checkout.index');
     Route::post('/place-order', [CheckoutController::class, 'placeOrder']);
-
     // my order
     Route::get('/my-orders',       [UserController::class, 'index']);
     Route::get('/view-order/{id}', [UserController::class, 'viewOrder']);
+    // wishlist roure
+    Route::get('/wishlists', [WishlistController::class, 'index'])->name('wishlists.index');
+
 });
 
 // admin access route

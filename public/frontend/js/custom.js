@@ -47,6 +47,31 @@ $(document).ready(function () {
         });
     });
 
+    // Add to wishlist
+    $('.addToWishlist').click(function(e) {
+        e.preventDefault();
+        var productId = $(this).closest('.product_data').find('.product_id').val();
+        data = {
+            'product_id': productId
+        }
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            method: "post",
+            url: "/add-to-wishlists",
+            data: data,
+            success: function (response) {
+                // console.log(response);
+                swal(response.status);
+            }
+        });
+    });
+
     // increment price with incremet product quantity
     $('.changeQty').click(function(e) {
         e.preventDefault();
