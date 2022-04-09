@@ -16,9 +16,14 @@ class CheckoutController extends Controller
     public function index()
     {
         $oldCarts = Cart::where('user_id', Auth::id())->get();
+
         foreach($oldCarts as $cart) {
-            if(!Product::where('id', $cart->product_id)->where('quantity', '>=', $cart->product_qty)->exists()) {
-                $removeItem = Cart::where('user_id', Auth::id())->where('product_id', $cart->product_id)->first();
+            // Check product quantity
+            $product = Product::where('id', $cart->product_id)
+                              ->where('quantity', '>=', $cart->product_qty)->first();
+            if (!$product) {
+                $removeItem = Cart::where('user_id', Auth::id())
+                                  ->where('product_id', $cart->product_id)->first();
                 $removeItem->delete();
             }
         }
@@ -32,6 +37,7 @@ class CheckoutController extends Controller
     public function placeOrder(Request $request)
     {
         $order             = new Order();
+
         $order->user_id    = Auth::id();
         $order->f_name     = $request->input('f_name');
         $order->l_name     = $request->input('l_name');
@@ -46,21 +52,23 @@ class CheckoutController extends Controller
         // to calculate total price
         $total = 0;
         $carts = Cart::where('user_id', Auth::id())->get();
-       foreach ($carts as $cart) {
-           $total += $total +$cart->product->selling_price;
-       }
 
-       $order->total_price = $total;
-        $order->traking_no = 'JR'.rand(1111, 9999);
+        foreach ($carts as $cart) {
+            $total += $total + $cart->product->selling_price * $cart->product_qty;
+        }
+
+        $order->total_price = $total;
+        $order->traking_no  = 'JR'.rand(1111, 9999);
         $order->save();
 
         $carts = Cart::where('user_id', Auth::id())->get();
+
         foreach ($carts as $cart) {
             OrderItem::create([
                 'order_id'   => $order->id,
                 'product_id' => $cart->product_id,
                 'quantity'   => $cart->product_qty,
-                'price'      => $cart->product->selling_price
+                'price'      => ($cart->product->selling_price) ?? 0
             ]);
             $product = Product::where('id', $cart->product_id)->first();
             $product->quantity = $product->quantity - $cart->product_qty;
@@ -68,7 +76,8 @@ class CheckoutController extends Controller
         }
 
         if(Auth::user()->address_1 == NULL) {
-            $user            = User::where('id', Auth::id())->first();
+            $user = User::where('id', Auth::id())->first();
+
             $user->name      = $request->input('f_name');
             $user->l_name    = $request->input('l_name');
             $user->phone_num = $request->input('phone_num');

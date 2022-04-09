@@ -10,21 +10,18 @@ use Auth;
 
 class CartController extends Controller
 {
-    public function addProduct(Request $request)
+    public function addProductCart(Request $request)
     {
-        $productId = $request->input('product_id');
+        $productId  = $request->input('product_id');
         $productQty = $request->input('product_qty');
-        if(Auth::check())
-        {
+        if(Auth::check()) {
             $productCheck = Product::where('id', $productId)->first();
-            if($productCheck)
-            {
-                if(Cart::where('product_id', $productId)->where('user_id', Auth::id())->exists())
-                {
+            if($productCheck) {
+                $card = Cart::where('product_id', $productId)
+                                   ->where('user_id', Auth::id())->first();
+                if($card) {
                     return response()->json(['status'=> $productCheck->name.' Already Added to Cart']);
-                }
-                else
-                {
+                }else{
                     $cart              = new Cart();
                     $cart->product_id  = $productId;
                     $cart->user_id     = Auth::id();
@@ -33,9 +30,7 @@ class CartController extends Controller
                     return response()->json(['status'=> $productCheck->name.' Added to Cart']);
                 }
             }
-        }
-        else
-        {
+        } else{
             return response()->json(['status'=> 'Loging to continue']);
         }
     }
@@ -43,7 +38,11 @@ class CartController extends Controller
     // cart view
     public function cartView()
     {
-        $cartItem = Cart::where('user_id', Auth::id())->get();
+        if(Auth::check()) {
+            $cartItem = Cart::where('user_id', Auth::id())->get();
+        }else {
+            return response()->json(['status', 'Please loging to show cart']);
+        }
 
         return view('frontend.cart', [
             'cartItem' => $cartItem
@@ -51,17 +50,17 @@ class CartController extends Controller
     }
 
     // cart update
-     public function UpdateCart(Request $request)
+     public function UpdateProductCart(Request $request)
     {
-        $productId = $request->input('product_id');
+        $productId  = $request->input('product_id');
         $productQty = $request->input('product_qty');
         if(Auth::check()) {
-            if(Cart::where('product_id', $productId)->where('user_id', Auth::id())->exists()) {
-                $cart = Cart::where('product_id', $productId)->where('user_id', Auth::id())->first();
+            $cart = Cart::where('product_id', $productId)->where('user_id', Auth::id())->first();
+            if($cart) {
                 $cart->product_qty = $productQty;
                 $cart->update();
 
-                return response()->json(['status'=> 'Product Updated']);
+                return response()->json(['status'=> 'Product updated successfully']);
             }
         }else {
             return response()->json(['status'=> 'Please Loging to Continue']);
@@ -69,20 +68,26 @@ class CartController extends Controller
     }
 
     // delete cart item
-    public function deleteProduct(Request $request)
+    public function deleteProductCart(Request $request, $id)
     {
         if(Auth::check()) {
-           $productId = $request->input('product_id');
-            if(Cart::where('product_id', $productId)->where('user_id', Auth::id())->exists()) {
-                $cartItem = Cart::where('product_id', $productId)
-                                ->where('user_id', Auth::id())->first();
+        //    $productId = $request->input('product_id');
+           $cartItem = Cart::where('product_id', $id)
+                           ->where('user_id', Auth::id())->first();
+            if($cartItem) {
                 $cartItem->delete();
 
-                return response()->json(['status'=> 'Product Deleted Successfully']);
+                return back()->with('status', 'Product Deleted Successfully');
             }
-
         } else {
-            return response()->json(['status'=> 'Please Login to Continue']);
+            return back()->with('status', 'Please Login to Continue');
         }
+    }
+
+    public function cartCount()
+    {
+        $cartCount = Cart::where('user_id', Auth::id())->count();
+
+        return response()->json(['count' => $cartCount]);
     }
 }

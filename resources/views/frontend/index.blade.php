@@ -14,7 +14,7 @@
                 {{-- <div class="owl-carousel feature-carousel owl-theme"> --}}
                     @foreach ($featureProducts as $product)
                     <div class="col-md-3 mt-3">
-                        <a href="">
+                        <a href="{{ route('prosucts.show',[$product->category->name,$product->slug]) }}">
                             <div class="card">
                                 <img src="{{asset('uploaded/productImages/'.$product->image)}}" alt="product image">
                                 <div class="card-body">
@@ -36,14 +36,14 @@
             <div class="row">
                 <h2>Trending Category</h2>
                 {{-- <div class="owl-carousel feature-carousel owl-theme"> --}}
-                    @foreach ($trendingCategories as $category)
+                    @foreach ($trendingCategories as $tCategory)
                     <div class="col-md-3 mt-3">
-                         <a href="{{route('category.show',$category->slug)}}">
+                         <a href="{{route('categories.show',$tCategory->slug)}}">
                              <div class="card">
-                            <img src="{{asset('uploaded/categoryImages/'.$category->image)}}" alt="category image">
+                            <img src="{{asset('uploaded/categoryImages/'.$tCategory->image)}}" alt="category image">
                             <div class="card-body">
-                                <h5>{{ $category->name }}</h5>
-                               <p>{{$category->description}}</p>
+                                <h5>{{ $tCategory->name }}</h5>
+                               <p>{{$tCategory->description}}</p>
                             </div>
                         </div>
                          </a>
