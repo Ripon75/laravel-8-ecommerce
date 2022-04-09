@@ -14,10 +14,14 @@
                     <a class="nav-link" href="{{url('/')}}">Category</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('cart.view')}}">Cart</a>
+                    <a class="nav-link" href="{{route('cart.view')}}">Cart
+                        <span class="badge badge-pill bg-primary cart-count">0</span>
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('wishlists.index')}}">Wishlist</a>
+                    <a class="nav-link" href="{{route('wishlists.index')}}">Wishlist
+                        <span class="badge badge-pill bg-success wishlist-count">0</span>
+                    </a>
                 </li>
 
                 @guest

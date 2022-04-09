@@ -24,6 +24,7 @@ Auth::routes();
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // cart route
+Route::get('/load-cart-data',        [CartController::class, 'cartCount']);
 Route::post('/add-to-cart',          [Cartcontroller::class, 'addProductCart'])->name('cart.add-product');
 Route::post('/update-cart',          [Cartcontroller::class, 'UpdateProductCart']);
 Route::get('/delete-cart-item/{id}', [Cartcontroller::class, 'deleteProductCart'])->name('cart.product-delete');
@@ -36,6 +37,7 @@ Route::get('/order-history',         [OrderController::class, 'orderHistory']);
 
 Route::post('/add-to-wishlists',     [WishlistController::class, 'add']);
 Route::get('/remove-wishlists/{id}', [WishlistController::class, 'remove'])->name('remove.wishlists');
+Route::get('/load-wishlist-data',    [WishlistController::class, 'wishlistCount']);
 
 
 Route::middleware(['auth'])->group(function(){

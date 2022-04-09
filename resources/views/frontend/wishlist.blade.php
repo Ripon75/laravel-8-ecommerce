@@ -37,7 +37,7 @@
                                 <button class="decrement-btn input-group-text">-</button>
                                 <input type="text" name="quantity" value="1"
                                 class="qty-input form-control text-center" />
-                                <button class="increment-btn input-group-text plus">+</button>
+                                <button class="increment-btn input-group-text">+</button>
                             </div>
                         @else
                             <h6>Out of stock</h6>

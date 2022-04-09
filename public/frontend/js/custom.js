@@ -1,4 +1,8 @@
 $(document).ready(function () {
+    // when page reload then count cart
+    loadCart()
+    // when page reload then count wishlist
+    loadWishlist()
     //   event with increment button 
     $('.increment-btn').click(function (e) {
         e.preventDefault();
@@ -43,6 +47,7 @@ $(document).ready(function () {
             // cache: false,
             success: function (response) {
                 swal(response.status);
+                loadCart();
             }
         });
     });
@@ -66,8 +71,8 @@ $(document).ready(function () {
             url: "/add-to-wishlists",
             data: data,
             success: function (response) {
-                // console.log(response);
                 swal(response.status);
+                loadWishlist();
             }
         });
     });
@@ -96,6 +101,30 @@ $(document).ready(function () {
             }
         });
     });
+
+    // update cart count
+    function loadCart() {
+        $.ajax({
+            method: 'GET',
+            url: '/load-cart-data',
+            success: function(response) {
+                $('.cart-count').html('');
+                $('.cart-count').html(response.count);
+            }
+        });
+    }
+
+    // update wishlist count
+    function loadWishlist() {
+        $.ajax({
+            method: 'GET',
+            url: '/load-wishlist-data',
+            success: function(response) {
+                $('.wishlist-count').html('');
+                $('.wishlist-count').html(response.count);
+            }
+        });
+    }
 
        // event with delete button
     // $('.delete-cart-item').click(function (e) {
