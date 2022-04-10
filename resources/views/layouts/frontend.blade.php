@@ -50,6 +50,7 @@
 <script src="{{ asset('frontend/js/jquery-3.6.0.min.js')}}"></script>
 {{-- custom js --}}
 <script src="{{ asset('frontend/js/custom.js')}}"></script>
+<script src="{{ asset('frontend/js/checkout.js')}}"></script>
 
   {{-- End core js --}}
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
