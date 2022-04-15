@@ -36,19 +36,21 @@ class CheckoutController extends Controller
 
     public function placeOrder(Request $request)
     {
-        $order             = new Order();
+        $order = new Order();
 
-        $order->user_id    = Auth::id();
-        $order->f_name     = $request->input('f_name');
-        $order->l_name     = $request->input('l_name');
-        $order->email      = $request->input('email');
-        $order->phone_num  = $request->input('phone_num');
-        $order->address_1  = $request->input('address_1');
-        $order->address_2  = $request->input('address_2');
-        $order->city       = $request->input('city');
-        $order->state      = $request->input('state');
-        $order->country    = $request->input('country');
-        $order->pin_code   = $request->input('pin_code');
+        $order->user_id      = Auth::id();
+        $order->f_name       = $request->input('f_name');
+        $order->l_name       = $request->input('l_name');
+        $order->email        = $request->input('email');
+        $order->phone_num    = $request->input('phone_num');
+        $order->address_1    = $request->input('address_1');
+        $order->address_2    = $request->input('address_2');
+        $order->city         = $request->input('city');
+        $order->state        = $request->input('state');
+        $order->country      = $request->input('country');
+        $order->pin_code     = $request->input('pin_code');
+        $order->payment_mode = $request->input('payment_mode');
+        $order->payment_id   = $request->input('payment_id');
         // to calculate total price
         $total = 0;
         $carts = Cart::where('user_id', Auth::id())->get();
@@ -90,8 +92,45 @@ class CheckoutController extends Controller
             $user->update();
         }
 
-        $carts = Cart::where('user_id', Auth::id())->get();
-        Cart::destroy($carts);
+        $cartItems = Cart::where('user_id', Auth::id())->get();
+        Cart::destroy($cartItems);
+
+        if ($request->input('payment_mode') == 'Paid by Razorpay') {
+            return response()->json(['status' => 'Order Place Successfully']);
+        }
         return redirect('/')->with('status', 'Order Place Successfully');
+    }
+
+    public function razorpayCheck(Request $request)
+    {
+        $cartItems = Cart::where('user_id', Auth::id())->get();
+
+        $totalPrice = 0;
+        foreach ($cartItems as $item) {
+            $totalPrice += $item->product->selling_price*$item->product_qty;
+        }
+
+        $firstName   = $request->input('first_name');
+        $lastName    = $request->input('last_name');
+        $email       = $request->input('email');
+        $phoneNumber = $request->input('phone_number');
+        $address1    = $request->input('address_1');
+        $city        = $request->input('city');
+        $state       = $request->input('state');
+        $country     = $request->input('country');
+        $pinCode     = $request->input('pin_code');
+
+        return response()->json([
+            'first_name'   => $firstName,
+            'last_name'    => $lastName,
+            'email'        => $email,
+            'phone_num'    => $phoneNumber,
+            'address_1'    => $address1,
+            'city'         => $city,
+            'state'        => $state,
+            'country'      => $country,
+            'pin_code'     => $pinCode,
+            'total_price'  => $totalPrice
+        ]);
     }
 }

@@ -51,6 +51,8 @@ Route::middleware(['auth'])->group(function(){
     // wishlist roure
     Route::get('/wishlists', [WishlistController::class, 'index'])->name('wishlists.index');
 
+    Route::post('/process-to-pay', [CheckoutController::class, 'razorpayCheck']);
+
 });
 
 // admin access route

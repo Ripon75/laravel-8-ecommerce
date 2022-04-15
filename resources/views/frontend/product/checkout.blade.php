@@ -106,7 +106,8 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        <button type="submit" class="btn btn-primary btn-sm w-100">Place Order</button>
+                        <input type="hidden" name="payment_mode" value="COD">
+                        <button type="submit" class="btn btn-primary btn-sm w-100">Place Order | COD</button>
                         <button type="button" class="btn btn-success btn-sm w-100 mt-2 razorpay_btn">Pay with Razorpay</button>
                     </div>
                 </div>
@@ -115,4 +116,8 @@
         </div>
     </form>
 </div>
+@endsection
+
+@section('script')
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 @endsection
