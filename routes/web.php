@@ -12,6 +12,7 @@ use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\UserController;
 use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\WishlistController;
+use App\Http\Controllers\Frontend\RatingController;
 
 Route::get('/',                    [FrontendController::class, 'index']);
 Route::get('/frontemd/categories', [FrontendController::class, 'category']);
@@ -50,9 +51,10 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/view-order/{id}', [UserController::class, 'viewOrder']);
     // wishlist roure
     Route::get('/wishlists', [WishlistController::class, 'index'])->name('wishlists.index');
-
+    // Razorpay payment gateway route
     Route::post('/process-to-pay', [CheckoutController::class, 'razorpayCheck']);
-
+    // Add rating route
+    Route::post('/add-rating', [RatingController::class, 'addRating']);
 });
 
 // admin access route

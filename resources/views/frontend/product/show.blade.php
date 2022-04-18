@@ -5,6 +5,55 @@
 @endsection
 
 @section('content')
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="{{ url('/add-rating') }}" method="POST">
+                @csrf
+                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Rate this {{ $product->name }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {{-- product rating --}}
+                    <div class="rating-css">
+                        <div class="star-icon">
+                            @if ($userRating)
+                                @for ($i = 1; $i <= $userRating->stars_rated; $i++)
+                                    <input type="radio" value="{{ $i }}" name="product_rating" checked id="rating{{ $i }}">
+                                    <label for="rating{{ $i }}" class="fa fa-star"></label>
+                                @endfor
+                                @for ($j = $userRating->stars_rated+1; $j <= 5; $j++)
+                                    <input type="radio" value="{{ $j }}" name="product_rating" id="rating{{ $j }}">
+                                    <label for="rating{{ $j }}" class="fa fa-star"></label>
+                                @endfor
+                            @else
+                                <input type="radio" value="1" name="product_rating" checked id="rating1">
+                                <label for="rating1" class="fa fa-star"></label>
+                                <input type="radio" value="2" name="product_rating" id="rating2">
+                                <label for="rating2" class="fa fa-star"></label>
+                                <input type="radio" value="3" name="product_rating" id="rating3">
+                                <label for="rating3" class="fa fa-star"></label>
+                                <input type="radio" value="4" name="product_rating" id="rating4">
+                                <label for="rating4" class="fa fa-star"></label>
+                                <input type="radio" value="5" name="product_rating" id="rating5">
+                                <label for="rating5" class="fa fa-star"></label>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <div class="py-3 mb-4 shadow-sm bg-warning border-top">
     <div class="container">
         <h6 class="mb-0">Collection / {{($product->category->name) ?? null}} / {{$product->name}}</h6>
@@ -29,10 +78,33 @@
                     <hr>
                     {{-- Product information --}}
                     <span class="me-3">Original Price : <s> Rs {{$product->original_price}}</s></span>
-                    <span>Selling Price : Rs {{$product->selling_price}}</span>
-                    <p class="mt-3">
-                        {{$product->description}}
-                    </p>
+                    <span>Selling Price : Rs {{$product->selling_price}}</span><br>
+                    @php
+                        $ratingCount = number_format($avgRatingValue)
+                    @endphp
+                    <div class="rating">
+                        {{-- Show checked stars --}}
+                        @for ($i = 1; $i<=$ratingCount; $i++)
+                        <i class="fa fa-star checked"></i>
+                        @endfor
+                        {{-- Show unchecked stars --}}
+                        @for ($j = $ratingCount+1; $j<=5; $j++)
+                        <i class="fa fa-star"></i>
+                        @endfor
+                        {{-- count how many user rated this product --}}
+                        <span>
+                            @if ($ratings->count() > 0)
+                            {{ $ratings->count() }} Ratings
+                            @else
+                            No rating
+                            @endif
+                        </span>
+                    </div>
+                    <p class="mt-3">{{$product->description}}</p>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Rate this product
+                    </button>
                     <hr>
                     {{-- Check stock available or not --}}
                     @if ($product->quantity > 0)
@@ -57,11 +129,13 @@
                         <div class="col-md-10">
                             {{-- Add to cart button show when product quantity greater than zero --}}
                             @if ($product->quantity > 0)
-                            <button type="button" class="addToCart btn btn-success me-3 float-start">Add to Cart <i
-                                    class="fa fa-shopping-cart"></i></button>
+                            <button type="button" class="addToCart btn btn-success me-3 float-start">Add to Cart
+                                <i class="fa fa-shopping-cart"></i>
+                            </button>
                             @endif
-                            <button type="button" class="addToWishlist btn btn-primary me-3 float-start">Add to Wishlist <i
-                                    class="fa fa-heart"></i></button>
+                            <button type="button" class="addToWishlist btn btn-primary me-3 float-start">Add to Wishlist
+                                <i class="fa fa-heart"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
