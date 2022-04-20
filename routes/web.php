@@ -13,6 +13,7 @@ use App\Http\Controllers\Frontend\UserController;
 use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\WishlistController;
 use App\Http\Controllers\Frontend\RatingController;
+use App\Http\Controllers\Frontend\ReviewController;
 
 Route::get('/',                    [FrontendController::class, 'index']);
 Route::get('/frontemd/categories', [FrontendController::class, 'category']);
@@ -55,6 +56,11 @@ Route::middleware(['auth'])->group(function(){
     Route::post('/process-to-pay', [CheckoutController::class, 'razorpayCheck']);
     // Add rating route
     Route::post('/add-rating', [RatingController::class, 'addRating']);
+    //Add review
+    Route::get('/add-review/{product_slug}/userreview', [ReviewController::class, 'addReview']);
+    Route::post('/add-review', [ReviewController::class, 'store']);
+    Route::get('/edit-review/{product_slug}/userreview', [ReviewController::class, 'edit']);
+    Route::put('/update-review', [ReviewController::class, 'update']);
 });
 
 // admin access route
