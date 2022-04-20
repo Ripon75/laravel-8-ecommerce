@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Rating;
+use App\Models\Review;
 use Auth;
 
 class FrontendController extends Controller
@@ -56,8 +57,8 @@ class FrontendController extends Controller
                 $product    = Product::where('slug', $prod_slug)->first();
                 $ratings    = Rating::where('product_id', $product->id)->get();
                 $ratingSum  = Rating::where('product_id', $product->id)->sum('stars_rated');
-                $userRating = Rating::where('product_id', $product->id)
-                ->where('user_id', Auth::id())->first();
+                $userRating = Rating::where('product_id', $product->id)->where('user_id', Auth::id())->first();
+                $reviews    = Review::where('product_id', $product->id)->get();
 
                 if ($ratings->count() > 0) {
                     $avgRatingValue = $ratingSum/$ratings->count();
@@ -69,7 +70,8 @@ class FrontendController extends Controller
                     'product'        => $product,
                     'ratings'        => $ratings,
                     'avgRatingValue' => $avgRatingValue,
-                    'userRating'     => $userRating
+                    'userRating'     => $userRating,
+                    'reviews'        => $reviews
                 ]);
 
             } else {

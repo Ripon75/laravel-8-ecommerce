@@ -101,10 +101,6 @@
                         </span>
                     </div>
                     <p class="mt-3">{{$product->description}}</p>
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        Rate this product
-                    </button>
                     <hr>
                     {{-- Check stock available or not --}}
                     @if ($product->quantity > 0)
@@ -138,6 +134,48 @@
                             </button>
                         </div>
                     </div>
+                </div>
+            </div>
+            <hr>
+            {{-- product rating and review part --}}
+            <div class="row mt-4">
+                <div class="col-md-4">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Rate this product
+                    </button>
+                    {{-- link for review --}}
+                    <a href="{{ url('add-review/'.$product->slug.'/userreview') }}" class="btn btn-success">
+                        Write a review
+                    </a>
+                </div>
+                <div class="col-md-8">
+                    @foreach ($reviews as $item)
+                        <div class="user-review">
+                            <label for="">{{ $item->user->name .' '. $item->user->l_name}}</label>
+                            @if ($item->user_id == Auth::id())
+                            <a href="{{ url('edit-review/'.$product->slug.'/userreview') }}">Edit</a><br>
+                            @endif
+
+                            @php
+                                $rating = App\Models\Rating::where('product_id', $product->id)->where('user_id', $item->user->id)->first();
+                            @endphp
+                            
+                            @if ($rating)
+                            @php $userRated = $rating->stars_rated @endphp
+                                {{-- Show checked stars --}}
+                                @for ($i = 1; $i<=$userRated; $i++)
+                                <i class="fa fa-star checked"></i>
+                                @endfor
+                                {{-- Show unchecked stars --}}
+                                @for ($j = $userRated+1; $j<=5; $j++)
+                                <i class="fa fa-star"></i>
+                                @endfor
+                            @endif
+                            <small>Reviewed on {{ $item->created_at->format('d-m-Y') }}</small>
+                            <p>{{ $item->review }}</p>
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </div>
