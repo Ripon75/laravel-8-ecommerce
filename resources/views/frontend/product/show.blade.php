@@ -79,16 +79,13 @@
                     {{-- Product information --}}
                     <span class="me-3">Original Price : <s> Rs {{$product->original_price}}</s></span>
                     <span>Selling Price : Rs {{$product->selling_price}}</span><br>
-                    @php
-                        $ratingCount = number_format($avgRatingValue)
-                    @endphp
                     <div class="rating">
                         {{-- Show checked stars --}}
-                        @for ($i = 1; $i<=$ratingCount; $i++)
+                        @for ($i = 1; $i<=$intgerValue; $i++)
                         <i class="fa fa-star checked"></i>
                         @endfor
                         {{-- Show unchecked stars --}}
-                        @for ($j = $ratingCount+1; $j<=5; $j++)
+                        @for ($j = $intgerValue+1; $j<=5; $j++)
                         <i class="fa fa-star"></i>
                         @endfor
                         {{-- count how many user rated this product --}}
@@ -149,26 +146,27 @@
                         Write a review
                     </a>
                 </div>
+                {{-- Show product review --}}
                 <div class="col-md-8">
                     @foreach ($reviews as $item)
                         <div class="user-review">
-                            <label for="">{{ $item->user->name .' '. $item->user->l_name}}</label>
+                            <label>{{ $item->user->name .' '. $item->user->l_name}}</label>
                             @if ($item->user_id == Auth::id())
                             <a href="{{ url('edit-review/'.$product->slug.'/userreview') }}">Edit</a><br>
                             @endif
 
-                            @php
+                            {{-- @php
                                 $rating = App\Models\Rating::where('product_id', $product->id)->where('user_id', $item->user->id)->first();
-                            @endphp
-                            
-                            @if ($rating)
-                            @php $userRated = $rating->stars_rated @endphp
+                            @endphp --}}
+
+                            @if ($userRating)
+                            {{-- @php $userRated = $rating->stars_rated @endphp --}}
                                 {{-- Show checked stars --}}
-                                @for ($i = 1; $i<=$userRated; $i++)
+                                @for ($i = 1; $i<=$userRating->stars_rated; $i++)
                                 <i class="fa fa-star checked"></i>
                                 @endfor
                                 {{-- Show unchecked stars --}}
-                                @for ($j = $userRated+1; $j<=5; $j++)
+                                @for ($j = $userRating->stars_rated+1; $j<=5; $j++)
                                 <i class="fa fa-star"></i>
                                 @endfor
                             @endif

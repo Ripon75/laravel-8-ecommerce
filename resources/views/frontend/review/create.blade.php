@@ -9,13 +9,15 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
+                <div class="card-header">
+                    <h5>You are written a review for {{ $product->name }}</h5>
+                </div>
                 <div class="card-body">
                     @if ($purchaseCheck->count() > 0)
-                        <h5>You are written a review for {{ $product->name }}</h5>
                         <form action="{{ url('/add-review') }}" method="POST">
                             @csrf
                             <input type="hidden" name="product_id" value="{{ $product->id }}">
-                            <textarea class="form-control mt-3" name="user_review" rows="5" placeholder="Write a review"></textarea>
+                            <textarea class="form-control mt-3" name="user_review" rows="5"></textarea>
                             <button type="submit" class="btn btn-primary mt-3">Submit</button>
                         </form>
                     @else

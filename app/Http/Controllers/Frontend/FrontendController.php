@@ -62,14 +62,15 @@ class FrontendController extends Controller
 
                 if ($ratings->count() > 0) {
                     $avgRatingValue = $ratingSum/$ratings->count();
+                    $intgerValue    = number_format($avgRatingValue);
                 }else {
-                    $avgRatingValue = 0;
+                    $intgerValue = 0;
                 }
                 
                 return view('frontend.product.show', [
                     'product'        => $product,
                     'ratings'        => $ratings,
-                    'avgRatingValue' => $avgRatingValue,
+                    'intgerValue'    => $intgerValue,
                     'userRating'     => $userRating,
                     'reviews'        => $reviews
                 ]);

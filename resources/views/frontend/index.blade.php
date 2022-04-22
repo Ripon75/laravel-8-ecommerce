@@ -14,7 +14,7 @@
                 {{-- <div class="owl-carousel feature-carousel owl-theme"> --}}
                     @foreach ($featureProducts as $product)
                     <div class="col-md-3 mt-3">
-                        <a href="{{ route('prosucts.show',[$product->category->name,$product->slug]) }}">
+                        <a href="{{ route('products.single',[$product->category->name,$product->slug]) }}">
                             <div class="card">
                                 <img src="{{asset('uploaded/productImages/'.$product->image)}}" alt="product image">
                                 <div class="card-body">

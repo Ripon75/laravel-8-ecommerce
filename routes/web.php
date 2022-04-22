@@ -19,7 +19,7 @@ Route::get('/',                    [FrontendController::class, 'index']);
 Route::get('/frontemd/categories', [FrontendController::class, 'category']);
 Route::get('/categories/{slug}',   [FrontendController::class, 'categoryShow'])->name('categories.show');
 // cat_slug is optional
-Route::get('/categories/{cat_slug?}/{prod_slug?}', [FrontendController::class, 'productShow'])->name('prosucts.show');
+Route::get('/categories/{cat_slug?}/{prod_slug?}', [FrontendController::class, 'productShow'])->name('products.single');
 
 Auth::routes();
 
@@ -56,7 +56,7 @@ Route::middleware(['auth'])->group(function(){
     Route::post('/process-to-pay', [CheckoutController::class, 'razorpayCheck']);
     // Add rating route
     Route::post('/add-rating', [RatingController::class, 'addRating']);
-    //Add review
+    // Review route
     Route::get('/add-review/{product_slug}/userreview', [ReviewController::class, 'addReview']);
     Route::post('/add-review', [ReviewController::class, 'store']);
     Route::get('/edit-review/{product_slug}/userreview', [ReviewController::class, 'edit']);

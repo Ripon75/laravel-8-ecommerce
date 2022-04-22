@@ -13,9 +13,9 @@ class ReviewController extends Controller
 {
     public function addReview($product_slug)
     {
-        $productCheck = Product::where('slug', $product_slug)->first();
-        if ($productCheck) {
-            $productId = $productCheck->id;
+        $product = Product::where('slug', $product_slug)->first();
+        if ($product) {
+            $productId = $product->id;
             $review = Review::where('user_id', Auth::id())->where('product_id', $productId)->first();
             if ($review) {
                 return view('frontend.review.edit', [
@@ -27,13 +27,13 @@ class ReviewController extends Controller
                 ->where('order_items.product_id', $productId)->get();
             }
         
-        return view('frontend.review.index', [
-            'product'       => $productCheck,
-            'purchaseCheck' => $purchaseCheck
-        ]);
+            return view('frontend.review.create', [
+                'product'       => $product,
+                'purchaseCheck' => $purchaseCheck
+            ]);
 
         }else {
-            return redirect()->back()->with('status', 'This link was brokrn');
+            return redirect()->back()->with('status', 'The link is followed was brokrn');
         }
     }
 
@@ -44,7 +44,7 @@ class ReviewController extends Controller
         
         $product = Product::where('id', $productId)->first();
         if ($product) {
-            $reviewObj             = new Review();
+            $reviewObj = new Review();
 
             $reviewObj->user_id    = Auth::id();
             $reviewObj->product_id = $productId;
@@ -54,7 +54,7 @@ class ReviewController extends Controller
             $categorySlug = $product->category->slug;
             $productSlug  = $product->slug;
             if ($res) {
-                return redirect('categories/'.$categorySlug.'/'.$productSlug)->with('status', 'Thank you for writng a review');
+                return redirect()->route('products.single',[$categorySlug, $productSlug])->with('status', 'Thank you for writng a review');
             }
 
         }else {
@@ -85,7 +85,7 @@ class ReviewController extends Controller
         $userReview = $request->input('user_review');
         if ($userReview != '') {
             $reviewId = $request->input('review_id');
-            $review = Review::where('id', $reviewId)->where('user_id', Auth::id())->first();
+            $review   = Review::where('id', $reviewId)->where('user_id', Auth::id())->first();
             if ($review) {
                 $review->review = $userReview;
                 $review->save();
