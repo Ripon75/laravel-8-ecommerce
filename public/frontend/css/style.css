@@ -18,6 +18,16 @@ a{
     font-weight: 400px;
 }
 
+/* search bar style */
+.search-bar {
+  width: 40%;
+  margin-left: 5%;
+}
+
+.ui-menu {
+  z-index: 3500 !important;
+}
+
 
 /* rating */
 .rating-css div {

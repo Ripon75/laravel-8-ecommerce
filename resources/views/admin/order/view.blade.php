@@ -1,4 +1,4 @@
-@extends('layouts.frontend')
+@extends('layouts.admin')
 
 @section('title')
 Order View
