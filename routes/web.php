@@ -20,6 +20,8 @@ Route::get('/frontemd/categories', [FrontendController::class, 'category']);
 Route::get('/categories/{slug}',   [FrontendController::class, 'categoryShow'])->name('categories.show');
 // cat_slug is optional
 Route::get('/categories/{cat_slug?}/{prod_slug?}', [FrontendController::class, 'productShow'])->name('products.single');
+Route::get('/product-list',    [FrontendController::class, 'productListAjax']);
+Route::post('/serarch-product', [FrontendController::class, 'searchProduct']);
 
 Auth::routes();
 

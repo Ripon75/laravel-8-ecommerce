@@ -56,9 +56,20 @@
 <script>
     var availableTags = [];
 
-    $( "#search-product" ).autocomplete({
-      source: availableTags
+    $.ajax({
+      method: "GET",
+      url: "/product-list",
+      success: function(response) {
+        startAutocomplete(response);
+      }
     });
+
+    function startAutocomplete(availableTags) {
+      $( "#search-product" ).autocomplete({
+        source: availableTags
+      });
+    }
+
 </script>
 
 {{-- custom js --}}

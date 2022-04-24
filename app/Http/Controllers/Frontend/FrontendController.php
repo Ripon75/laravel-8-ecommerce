@@ -84,4 +84,36 @@ class FrontendController extends Controller
             return redirect('/')->with('status', 'No such caregory found');
         }
     }
+
+    public function productListAjax()
+    {
+        $products = Product::select('name')->get();
+        $data = [];
+
+        foreach ($products as $item) {
+            $data[] = $item['name'];
+        }
+
+        return $data;
+    }
+
+    public function searchProduct(Request $request)
+    {
+        $productName = $request->input('product_name');
+        if ($productName != '') {
+            $products = Product::where('name', 'like', "%$productName%")->get();
+            $trendingCategories = Category::where('popular', '1')->get();
+            if ($products) {
+                return view('frontend.index', [
+                    'featureProducts'    => $products,
+                    'trendingCategories' => $trendingCategories
+                ]);
+            }else {
+                return redirect()->back()->with('status', 'No such a product');
+            }
+
+        }else {
+            return redirect()->back();
+        }
+    }
 }
