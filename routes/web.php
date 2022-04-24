@@ -19,17 +19,19 @@ Route::get('/',                    [FrontendController::class, 'index']);
 Route::get('/frontemd/categories', [FrontendController::class, 'category']);
 Route::get('/categories/{slug}',   [FrontendController::class, 'categoryShow'])->name('categories.show');
 // cat_slug is optional
-Route::get('/categories/{cat_slug?}/{prod_slug?}', [FrontendController::class, 'productShow'])->name('prosucts.show');
+Route::get('/categories/{cat_slug?}/{prod_slug?}', [FrontendController::class, 'productShow'])->name('products.single');
+Route::get('/product-list',    [FrontendController::class, 'productListAjax']);
+Route::post('/serarch-product', [FrontendController::class, 'searchProduct']);
 
 Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // cart route
-Route::get('/load-cart-data',        [CartController::class, 'cartCount']);
-Route::post('/add-to-cart',          [Cartcontroller::class, 'addProductCart'])->name('cart.add-product');
-Route::post('/update-cart',          [Cartcontroller::class, 'UpdateProductCart']);
-Route::get('/delete-cart-item/{id}', [Cartcontroller::class, 'deleteProductCart'])->name('cart.product-delete');
+Route::get('/load-cart-data',    [CartController::class, 'cartCount']);
+Route::post('/add-to-cart',      [Cartcontroller::class, 'addProductCart'])->name('cart.add-product');
+Route::post('/update-cart',      [Cartcontroller::class, 'UpdateProductCart']);
+Route::post('/delete-cart-item', [Cartcontroller::class, 'deleteProductCart'])->name('cart.product-delete');
 
 // order route
 Route::get('/orders',                [OrderController::class, 'index']);
@@ -37,9 +39,9 @@ Route::get('/admin/view-order/{id}', [OrderController::class, 'show']);
 Route::put('/update-order/{id}',     [OrderController::class, 'updateOrder']);
 Route::get('/order-history',         [OrderController::class, 'orderHistory']);
 
-Route::post('/add-to-wishlists',     [WishlistController::class, 'add']);
-Route::get('/remove-wishlists/{id}', [WishlistController::class, 'remove'])->name('remove.wishlists');
-Route::get('/load-wishlist-data',    [WishlistController::class, 'wishlistCount']);
+Route::post('/add-to-wishlists',  [WishlistController::class, 'add']);
+Route::post('/remove-wishlists',   [WishlistController::class, 'remove'])->name('remove.wishlists');
+Route::get('/load-wishlist-data', [WishlistController::class, 'wishlistCount']);
 
 
 Route::middleware(['auth'])->group(function(){
@@ -56,7 +58,7 @@ Route::middleware(['auth'])->group(function(){
     Route::post('/process-to-pay', [CheckoutController::class, 'razorpayCheck']);
     // Add rating route
     Route::post('/add-rating', [RatingController::class, 'addRating']);
-    //Add review
+    // Review route
     Route::get('/add-review/{product_slug}/userreview', [ReviewController::class, 'addReview']);
     Route::post('/add-review', [ReviewController::class, 'store']);
     Route::get('/edit-review/{product_slug}/userreview', [ReviewController::class, 'edit']);

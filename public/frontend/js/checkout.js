@@ -148,8 +148,10 @@ $(document).ready(function () {
                                 },
                                 success: function(responseb) {
                                     // alert(responseb.status);
-                                    swal(responseb.status);
-                                    window.location.href = "/my-orders";
+                                    swal(responseb.status)
+                                    .then((value) => {
+                                        window.location.href = "/my-orders";
+                                    });
                                 }
                             });
                         },

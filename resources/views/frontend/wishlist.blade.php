@@ -12,7 +12,7 @@
 </div>
 {{-- cart start --}}
 <div class="container">
-    <div class="card shadow">
+    <div class="card shadow wishlistItems">
         <div class="card-body">
             @if($wishlists->count() > 0)
             <div class="card-body">
@@ -51,10 +51,9 @@
                     </div>
                     {{-- Wishlist delete --}}
                     <div class="col-md-2">
-                        {{-- <button class="btn btn-danger delete-cart-wishlist"><i class="fa fa-trash"></i></button> --}}
-                        <a href="{{ route('remove.wishlists', $wishlist->id) }}" class="btn btn-danger">
+                        <button class="btn btn-danger delete-cart-wishlist">
                             <i class="fa fa-trash"></i>
-                        </a>
+                        </button>
                     </div>
                 </div>
                 @endforeach

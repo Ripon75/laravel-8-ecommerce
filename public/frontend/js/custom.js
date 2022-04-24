@@ -4,7 +4,7 @@ $(document).ready(function () {
     // when page reload then count wishlist
     loadWishlist()
     //   event with increment button 
-    $('.increment-btn').click(function (e) {
+    $(document).on('click', '.increment-btn', function(e) {
         e.preventDefault();
         var incrementValue = $(this).closest('.product_data').find('.qty-input').val();
         // var incrementValue = $('.qty-input').val();
@@ -17,7 +17,7 @@ $(document).ready(function () {
     });
 
     // event with decrement button
-    $('.decrement-btn').click(function (e) {
+    $(document).on('click', '.decrement-btn', function(e) {
         e.preventDefault();
         var decrementValue = $(this).closest('.product_data').find('.qty-input').val();
         var value = parseInt(decrementValue, 10);
@@ -78,7 +78,7 @@ $(document).ready(function () {
     });
 
     // increment price with incremet product quantity
-    $('.changeQty').click(function(e) {
+    $(document).on('click', '.changeQty', function(e) {
         e.preventDefault();
         var productId  = $(this).closest('.product_data').find('.product_id').val();
         var productQty = $(this).closest('.product_data').find('.qty-input').val();
@@ -96,8 +96,9 @@ $(document).ready(function () {
             url: "update-cart",
             data: data,
             success: function (response) {
-                window.location.reload();
-                // swal(response.status);
+                // window.location.reload();
+                $('.cartItems').load(location.href + " .cartItems");
+                swal(response.status);
             }
         });
     });
@@ -127,25 +128,51 @@ $(document).ready(function () {
     }
 
        // event with delete button
-    // $('.delete-cart-item').click(function (e) {
-    //     e.preventDefault();
-    //     var productId = $(this).closest('.product_data').find('.product_id').val();
-    //     $.ajaxSetup({
-    //         headers: {
-    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //         }
-    //     });
-    //     $.ajax({
-    //         method: "POST",
-    //         url: "delete-cart-item",
-    //         data: {
-    //             'product_id': productId
-    //         },
-    //         // cache: false,
-    //         success: function (response) {
-    //             window.location.reload();
-    //             swal(response.status);
-    //         }
-    //     });
-    // });
+    $(document).on('click', '.delete-cart-item', function(e) {
+        e.preventDefault();
+        var productId = $(this).closest('.product_data').find('.product_id').val();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            method: "POST",
+            url: "delete-cart-item",
+            data: {
+                'product_id': productId
+            },
+            // cache: false,
+            success: function (response) {
+                // window.location.reload();
+                loadCart();
+                $('.cartItems').load(location.href + " .cartItems");
+                swal('', response.status, 'success');
+            }
+        });
+    });
+    // Delete wishlist
+    $(document).on('click', '.delete-cart-wishlist', function(e) {
+        e.preventDefault();
+        var productId = $(this).closest('.product_data').find('.product_id').val();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            method: "POST",
+            url: "remove-wishlists",
+            data: {
+                'product_id': productId
+            },
+            // cache: false,
+            success: function (response) {
+                // window.location.reload();
+                loadWishlist();
+                $('.wishlistItems').load(location.href + " .wishlistItems");
+                swal('', response.status, 'success');
+            }
+        });
+    });
 });

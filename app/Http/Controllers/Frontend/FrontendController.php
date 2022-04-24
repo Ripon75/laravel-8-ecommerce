@@ -62,14 +62,15 @@ class FrontendController extends Controller
 
                 if ($ratings->count() > 0) {
                     $avgRatingValue = $ratingSum/$ratings->count();
+                    $intgerValue    = number_format($avgRatingValue);
                 }else {
-                    $avgRatingValue = 0;
+                    $intgerValue = 0;
                 }
                 
                 return view('frontend.product.show', [
                     'product'        => $product,
                     'ratings'        => $ratings,
-                    'avgRatingValue' => $avgRatingValue,
+                    'intgerValue'    => $intgerValue,
                     'userRating'     => $userRating,
                     'reviews'        => $reviews
                 ]);
@@ -81,6 +82,38 @@ class FrontendController extends Controller
 
         } else {
             return redirect('/')->with('status', 'No such caregory found');
+        }
+    }
+
+    public function productListAjax()
+    {
+        $products = Product::select('name')->get();
+        $data = [];
+
+        foreach ($products as $item) {
+            $data[] = $item['name'];
+        }
+
+        return $data;
+    }
+
+    public function searchProduct(Request $request)
+    {
+        $productName = $request->input('product_name');
+        if ($productName != '') {
+            $products = Product::where('name', 'like', "%$productName%")->get();
+            $trendingCategories = Category::where('popular', '1')->get();
+            if ($products) {
+                return view('frontend.index', [
+                    'featureProducts'    => $products,
+                    'trendingCategories' => $trendingCategories
+                ]);
+            }else {
+                return redirect()->back()->with('status', 'No such a product');
+            }
+
+        }else {
+            return redirect()->back();
         }
     }
 }

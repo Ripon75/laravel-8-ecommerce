@@ -6,12 +6,12 @@ Ecommerce
 
 @section('content')
 <div class="container">
-    <div class="card shadow">
+    <div class="card shadow cartItems">
         {{-- Check cart item exist or not  --}}
-        @if(count($cartItem) > 0)
+        @if(count($cartItems) > 0)
         <div class="card-body">
             @php $total = 0 @endphp
-            @foreach ($cartItem as $item)
+            @foreach ($cartItems as $item)
             <div class="row product_data">
                 {{-- Product information --}}
                 <div class="col-md-2">
@@ -50,8 +50,9 @@ Ecommerce
                 </div>
                 {{--  Cart item delete --}}
                 <div class="col-md-2">
-                    {{-- <button class="btn btn-danger delete-cart-item"><i class="fa fa-trash"></i></button> --}}
-                    <a href="{{ route('cart.product-delete', $item->product_id) }}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                    <button class="btn btn-danger delete-cart-item">
+                        <i class="fa fa-trash"></i>
+                    </button>
                 </div>
             </div>
             @endforeach
