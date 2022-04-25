@@ -39,6 +39,15 @@
     <div class="container py-4">
        @yield('content')
     </div>
+
+    {{-- whatsapp chat --}}
+    <div class="whatsapp-icon">
+      <a href="https://wa.me/+8801764997485?text=I'm%20interested%20in%20your%20car%20for%20sale" target="_blank">
+        <img src="{{ asset('frontend/assets/images/whatsapp-icon.jpg') }}" 
+        alt="whatsapp-icon" height="80px" width="80px">
+      </a>
+    </div>
+
     <footer class="footer py-4  ">
         <div class="container text-center">
             <h5>Footer part</h5>
@@ -50,6 +59,21 @@
 <script src="{{ asset('frontend/js/bootstrap.bundle.min.js')}}"></script>
 {{-- <script src="{{ asset('frontend/js/owl.carousel.min.js')}}"></script> --}}
 <script src="{{ asset('frontend/js/jquery-3.6.0.min.js')}}"></script>
+
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/6266daed7b967b11798c6f71/1g1gsecim';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+</script>
+<!--End of Tawk.to Script-->
+
 {{-- jquery ui --}}
 <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 
