@@ -60,3 +60,9 @@ a{
 .checked {
   color: #ffd900;
 }
+
+.whatsapp-icon {
+  bottom: 10px;
+  left: 10px;
+  position: fixed;
+}
